@@ -46,7 +46,7 @@ MIT License
   <script>
     var cart;
     $(document).ready(function() {
-      cart = new Cartfox.Cart({{ cart | json }}, {
+      cart = CartJS.init({{ cart | json }}, {
         addItem: '[data-add-to-cart]',
         cartItemCount: "[data-cart-item-count]",
         cartTotal: "[data-cart-total]",

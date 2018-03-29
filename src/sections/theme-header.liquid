@@ -1,53 +1,72 @@
 <!-- /snippets/theme-header.liquid -->
-
-{% assign enable_search = section.settings.enable_search %}
-
+{% assign settings = section.settings %}
+{% assign enable_banner = settings.enable_banner %}
+{% assign banner_text = settings.banner_text %}
+{% assign banner_bg = settings.banner_bg %}
+{% assign banner_text_col = settings.banner_text_col %}
+{% assign header_bg = settings.header_bg %}
+{% assign logo = settings.logo %}
+{% assign logo_alt = settings.logo_alt %}
+{% assign menu_color = settings.menu_color %}
+{% assign enable_search = settings.enable_search %}
+<style>
+  .banner {
+    background: {{ banner_bg }};
+  }
+  .banner p {
+    color: {{ banner_text_col }};
+  }
+  .main-header,
+  .mobile-header {
+    background: {{ header_bg }};
+  }
+  .menu-item a {
+    color: {{ menu_color }};
+  }
+</style>
 <header class="theme-header" role="banner">
-  <div class="container">
-
-    <div class="row l-table m-table">
-      <div class="column l8 m8 s12 l-left m-left s-middle">
-        {% include 'theme-logo' %}
+  {%- if enable_banner == true -%}
+    <div class="banner">
+      <div class="container l">
+        <p>{{ banner_text }}</p>
       </div>
-
-      <div class="column l4 m4 s12 l-right m-right s-middle">
-        {% if customer %}
-          <a href="/account" data-trigger="popup" data-target="#PopupAccount">{{ 'account.general.title' | t }}</a>
-        {% else %}
-          <a href="/account">{{ 'account.login.title' | t }}</a>
-        {% endif %}
-
-        <a href="/cart" id="CartLink" data-trigger="popup" data-target="#PopupCart.popup" aria-controls="Cart" aria-expanded="false" class="v-middle">
-          {{ 'cart.title' | t }}
-          <span data-cart-item-count>{{ cart.item_count }}</span>
-          (<span data-cart-total>{{ cart.total_price | money_with_currency }}</span>)
+    </div>
+  {%- endif -%}
+  {%- include 'header-desktop' -%}
+  <div class="mobile-header">
+    <div class="menu" id="menuTrigger">
+      <input type="checkbox" id="change-hamburguer" />
+      <a class="hamburguer" href="#">
+        <span></span>
+        <label for="change-hamburguer"></label>
+      </a>
+    </div>
+    <div class="logo">
+      <a href="/">
+        <img src="{{ logo | img_url:'master' }}" alt="{{ logo_alt }}">
+      </a>
+    </div>
+    <ul class="menu-options">
+      <li>
+        <a href="/account">
+          <img src="{{ 'ACCOUNT.png' | asset_url }}" alt="My Account">
         </a>
-
-        <div class="s-show margin-top-2x">
-          <a href="#NavToggled" data-trigger="popup" data-target="#NavToggled">
-            {{ 'common.menu' | t }}
+      </li>
+      <li>
+        <a href="/cart">
+          <img src="{{ 'CART.png' | asset_url }}" alt="My Cart">
+        </a>
+      </li>
+      {%- if enable_search == true -%}
+        <li>
+          <a class="search-btn">
+            <img src="{{ 'SEARCH.png' | asset_url }}" alt="Search">
           </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="row l-table m-table s-hide">
-      <div class="column{% if enable_search %} l9 m9 {% else %} l12{% endif %} s12 l-left m-left s-v-middle">
-        {% include 'theme-nav-main' %}
-      </div>
-      {% if enable_search %}
-        <div class="column l3 m3 s12 l-right m-right">
-          {% include 'form-search' %}
-        </div>
-      {% endif %}
-    </div>
-
-    <hr>
-
+        </li>
+      {%- endif -%}
+    </ul>
   </div>
 </header>
-
-{% include 'theme-nav-toggled' %}
 
 {% schema %}
   {
@@ -55,12 +74,63 @@
     "settings": [
       {
         "type": "header",
+        "content": "Banner"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_banner",
+        "label": "Enable banner",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "banner_text",
+        "label": "Banner Text",
+        "default": "Free Shipping on orders over $1"
+      },
+      {
+        "type": "color",
+        "id": "banner_bg",
+        "label": "Banner Background",
+        "default": "#eeeeee"
+      },
+      {
+        "type": "color",
+        "id": "banner_text_col",
+        "label": "Banner Text Color",
+        "default": "#000"
+      },
+      {
+        "type": "header",
         "content": "Header"
+      },
+      {
+        "type": "color",
+        "id": "header_bg",
+        "label": "Header Background",
+        "default": "#fff"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "logo_alt",
+        "label": "Alt Tag for Logo",
+        "default": "Le Mystere"
+      },
+      {
+        "type": "color",
+        "id": "menu_color",
+        "label": "Menu Text Color",
+        "default": "#000"
       },
       {
         "type": "checkbox",
         "id": "enable_search",
-        "label": "Enable search",
+        "label": "Enable Search",
         "default": true
       }
     ]
