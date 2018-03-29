@@ -24,9 +24,24 @@
 // =require vendor/focus.js
 
 /*!
- * concrete.cart.min.js
+ * cart.min.js
  */
-// =require vendor/Cartfox.js
+// =require vendor/cart.min.js
+
+/*!
+ * rivets-cart.min.js
+ */
+// =require vendor/rivets-cart.min.js
+
+/*!
+ * velocity.min.js
+ */
+// =require vendor/velocity.min.js
+
+/*!
+ * swiper.js
+ */
+// =require vendor/swiper.js
 
 // Attempts to preserve comments that likely contain licensing information,
 // even if the comment does not have directives such as `@license` or `/*!`.

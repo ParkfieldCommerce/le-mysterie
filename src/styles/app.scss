@@ -19,6 +19,9 @@
 /* Utils =====================================================================*/
 @import url('utils/mixins.scss');
 
+/* Vendor =====================================================================*/
+@import url('vendor/swiper.css');
+
 /* Global ====================================================================*/
 @import url('global/concrete-reset.scss');
 @import url('global/global.scss');
