@@ -33,39 +33,7 @@
     </div>
   {%- endif -%}
   {%- include 'header-desktop' -%}
-  <div class="mobile-header">
-    <div class="menu" id="menuTrigger">
-      <input type="checkbox" id="change-hamburguer" />
-      <a class="hamburguer" href="#">
-        <span></span>
-        <label for="change-hamburguer"></label>
-      </a>
-    </div>
-    <div class="logo">
-      <a href="/">
-        <img src="{{ logo | img_url:'master' }}" alt="{{ logo_alt }}">
-      </a>
-    </div>
-    <ul class="menu-options">
-      <li>
-        <a href="/account">
-          <img src="{{ 'ACCOUNT.png' | asset_url }}" alt="My Account">
-        </a>
-      </li>
-      <li>
-        <a href="/cart">
-          <img src="{{ 'CART.png' | asset_url }}" alt="My Cart">
-        </a>
-      </li>
-      {%- if enable_search == true -%}
-        <li>
-          <a class="search-btn">
-            <img src="{{ 'SEARCH.png' | asset_url }}" alt="Search">
-          </a>
-        </li>
-      {%- endif -%}
-    </ul>
-  </div>
+  {%- include 'header-mobile' -%}
 </header>
 
 {% schema %}

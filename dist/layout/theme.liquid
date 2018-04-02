@@ -34,6 +34,8 @@ MIT License
 
   <!-- CSS ================================================================= -->
   {{ 'app.scss.css' | asset_url | stylesheet_tag }}
+  <!-- Swiper CSS fallback  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.2/css/swiper.min.css">
 
   <!-- JavaScript =========================================================== -->
   {% if shop.customer_accounts_enabled and template contains 'customers' %}
@@ -43,6 +45,10 @@ MIT License
   {{ 'vendor.js' | asset_url | script_tag }}
   <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'app.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
   <!--[if lte IE 9]><script src="{{ 'app.js' | asset_url }}"></script><![endif]-->
+  <!-- velocityJS fallback -->
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@2.0/velocity.min.js"></script>
+  <!-- Swiper JS fallback -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.2/js/swiper.js"></script>
   <script>
     var cart;
     $(document).ready(function() {

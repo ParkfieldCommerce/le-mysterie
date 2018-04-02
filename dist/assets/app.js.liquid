@@ -705,4 +705,25 @@ $(document).ready(function() {
   var sections = new concrete.Sections();
   sections.register('product', concrete.Product);
   sections.register('collection', concrete.Collection);
-})
+});
+
+// No More jQuery
+document.addEventListener("DOMContentLoaded", function() {
+  // Mobile Menu Trigger
+  var mbMenu = document.querySelector('#menuTrigger');
+  mbMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    var mainMenu = document.querySelector('.mb-main-menu');
+    jsClosed = mainMenu.classList.contains('js-closed');
+    jsOpen = mainMenu.classList.contains('js-open')
+    if (jsClosed === true) {
+      mainMenu.classList.remove('js-closed');
+      mainMenu.classList.add('js-open');
+      mainMenu.velocity({ height: '300px' }, { duration: 300 });
+    } else if (jsOpen === true) {
+      mainMenu.classList.remove('js-open');
+      mainMenu.classList.add('js-closed');
+      mainMenu.velocity({ height: 0 }, { duration: 300 });
+    }
+  });
+});
