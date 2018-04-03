@@ -1,33 +1,38 @@
-<div class="main-header">
-  <div class="container l">
-    <div class="menu-row">
-      <div class="logo">
-        <img src="{{ logo | img_url:'master' }}" alt="{{ logo_alt }}">
-      </div>
-      <ul class="main-menu">
-        {%- for link in linklists['main-menu'].links -%}
-          <li class="menu-item">{{ link.title | link_to: link.url }}</li>
-        {%- endfor -%}
-      </ul>
-      <ul class="menu-options">
-        <li>
-          <a href="/account">
-            <img src="{{ 'ACCOUNT.png' | asset_url }}" alt="My Account">
-          </a>
-        </li>
-        <li>
-          <a href="/cart">
-            <img src="{{ 'CART.png' | asset_url }}" alt="My Cart">
-          </a>
-        </li>
-        {%- if enable_search == true -%}
-          <li>
-            <a class="search-btn">
-              <img src="{{ 'SEARCH.png' | asset_url }}" alt="Search">
-            </a>
-          </li>
-        {%- endif -%}
-      </ul>
-    </div>
+<nav class="desktop-header s-hide m-hide">
+  <div class="logo">
+    <a href="{{ shop.url }}">
+      <img src="{{ logo | img_url:'master' }}" alt="{{ logo_alt }}">
+    </a>
   </div>
-</div>
+  <div class="main-menu">
+    <ul>
+      {%- for link in linklists['main-menu'].links -%}
+        <li class="menu-item">{{ link.title | link_to: link.url }}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  <div class="options">
+    <div class="account">
+      {% if customer %}
+          <a href="/account"><img src="{{ 'account.png' | asset_url }}" alt="My Account"></a>
+        {% else %}
+          <a href="/account"><img src="{{ 'account.png' | asset_url }}" alt="My Account"></a>
+        {% endif %}
+    </div>
+    <div class="cart">
+      <a href="/cart">
+        {%- if cart.item_count > 0 -%}
+          <span data-cart-item-count>{{ cart.item_count }}</span>
+        {%- endif -%}
+        <img src="{{ 'cart.png' | asset_url }}" alt="Cart">
+      </a>
+    </div>
+    {%- if enable_search == true -%}
+      <div class="search js-search">
+        <a class="desktop-search">
+          <img src="{{ 'search.png' | asset_url }}" alt="Search">
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</nav>

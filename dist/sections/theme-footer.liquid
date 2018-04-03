@@ -1,47 +1,67 @@
 <!-- /snippets/theme-footer.liquid -->
+{% assign settings = section.settings %}
+{% assign enable_footer_banner = settings.enable_footer_banner %}
+{% assign footer_banner_color = settings.footer_banner_color %}
+{% assign footer_banner_heading = settings.footer_banner_heading %}
+{% assign footer_banner_lead = settings.footer_banner_lead %}
+{% assign footer_banner_href = settings.footer_banner_href %}
+{% assign footer_bg = settings.footer_bg %}
+{% assign enable_social_media = settings.enable_social_media %}
 
-{% assign show_subscribe = section.settings.show_subscribe %}
-{% assign show_social = section.settings.show_social %}
-{% assign show_gateways = section.settings.show_gateways %}
+{% assign form_success = 'subscribe.confirmation' | t %}
+{% assign form_email_placeholder = 'form.email' | t %}
+{% assign form_button_text = 'subscribe.title' | t %}
 
-{% assign form_heading = section.settings.form_heading %}
-{% assign form_email_placeholder = section.settings.form_email_placeholder %}
-{% assign form_button_text = section.settings.form_button_text %}
-{% assign form_success = section.settings.form_success %}
-{% assign form_show_button = section.settings.form_show_button %}
+<style>
+  .theme-footer {
+    background: {{ footer_bg }};
+  }
 
+  .footer-banner {
+    background: {{ footer_banner_color }};
+  }
+</style>
 <footer class="theme-footer" role="contentinfo">
-  <div class="container center">
-    <div class="row l-table">
-      <div class="column l5 m12 s12 l-left v-middle">
-        {% if show_social %}
-          {% include 'social-links' %}
-        {% endif %}
+  {%- if enable_footer_banner == true -%}
+    <div class="footer-banner">
+      <h1 class="title">{{ footer_banner_heading }}</h1>
+      {%- if footer_banner_href != blank -%}
+        <a href="{{ footer_banner_href }}" class="lead">{{ footer_banner_lead }}</a>
+      {%- else -%}
+        <p class="lead">{{ footer_banner_lead }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+  <div class="container xl">
+    <div class="main-footer">
+      <div class="footer-menu">
+        <ul>
+          {%- for link in linklists['footer'].links -%}
+            <li class="footer-item">{{ link.title | link_to: link.url }}</li>
+          {%- endfor -%}
+        </ul>
       </div>
-      <div class="column l7 m12 s12 l-right v-middle">
-        {% if show_subscribe %}
-          {% unless form_heading == blank %}
-            <h5>{{ form_heading }}</h5>
-          {% endunless %}
-          {% include 'form-subscribe' %}
-        {% endif %}
+      <div class="subscribe-form">
+        {% form 'customer' %}
+          {{ form.errors | default_errors }}
+
+          {% if form.posted_successfully? %}
+            <p class="note form-success">{{ form_success }}</p>
+          {% else %}
+            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ form_email_placeholder }}" name="contact[email]" aria-label="{{ form_email_placeholder }}" autocorrect="off" autocapitalize="off">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input type="hidden" name="customer[accepts_marketing]" value="" />
+            <button type="submit" name="subscribe" class="subscribe-btn">Sign Up</button>
+          {% endif %}
+        {% endform %}
       </div>
+      {%- if enable_social_media == true -%}
+        <div class="social-media">
+
+        </div>
+      {%- endif -%}
     </div>
   </div>
-
-  <div class="container center">
-    <div class="row l-table">
-      <div class="column l7 m12 s12 l-left v-middle">
-        {% if show_gateways %}
-          {% include 'payment-gateways' %}
-        {% endif %}
-      </div>
-      <div class="column l5 m12 s12 l-right v-middle">
-        <small>&copy; {{ 'now' | date: "%Y" }} <a href="/">{{ shop.name }}</a> | site by <a href="https://elkfox.com?ref={{ shop.name | handleize }}" title="Digital Commerce Agency Elkfox.com" target="_blank">{% include 'icon' with 'elkfox' %}</a> &amp; <a href="http://shopify.com?ref=elkfox" title="Shopify.com" class="icon-small" target="_blank">{% include 'icon' with 'shopify' %} Shopify</a></small>
-      </div>
-    </div>
-  </div>
-
 </footer>
 {% schema %}
   {
@@ -49,56 +69,52 @@
     "settings": [
       {
         "type": "header",
-        "content": "Footer"
+        "content": "Footer Banner"
       },
       {
         "type": "checkbox",
-        "id": "show_social",
-        "label": "Show social media icons"
+        "id": "enable_footer_banner",
+        "label": "Enable Banner",
+        "default": true
       },
       {
-        "type": "checkbox",
-        "id": "show_gateways",
-        "label": "Show payment gateway icons",
-        "info": "Relevant payment icons will appear automatically when configured in [Payment Settings](/admin/settings/payments)"
+        "type": "color",
+        "id": "footer_banner_color",
+        "label": "Banner Background",
+        "default": "#f3f3f3"
+      },
+      {
+        "type": "text",
+        "id": "footer_banner_heading",
+        "label": "Banner Heading",
+        "default": "Discover your perfect fit today."
+      },
+      {
+        "type": "text",
+        "id": "footer_banner_lead",
+        "label": "Banner Lead",
+        "default": "Schedule a fitting"
+      },
+      {
+        "type": "url",
+        "id": "footer_banner_href",
+        "label": "Banner Lead URL"
       },
       {
         "type": "header",
-        "content": "Subscribe form"
+        "content": "Main Footer"
+      },
+      {
+        "type": "color",
+        "id": "footer_bg",
+        "label": "Footer Background",
+        "default": "#ffffff"
       },
       {
         "type": "checkbox",
-        "id": "show_subscribe",
-        "label": "Show subscribe form"
-      },
-      {
-        "type": "checkbox",
-        "id": "form_show_button",
-        "label": "Show submit button"
-      },
-      {
-        "type": "text",
-        "id": "form_heading",
-        "label": "Title",
-        "placeholder": "Subscribe"
-      },
-      {
-        "type": "text",
-        "id": "form_email_placeholder",
-        "placeholder": "Email address",
-        "label": "Email placeholder"
-      },
-      {
-        "type": "text",
-        "id": "form_button_text",
-        "label": "Button",
-        "placeholder": "Subscribe"
-      },
-      {
-        "type": "textarea",
-        "id": "form_success",
-        "placeholder": "Thank you for subscribing!",
-        "label": "Confirmation message"
+        "id": "enable_social_media",
+        "label": "Enable Social Media",
+        "default": true
       }
     ]
   }

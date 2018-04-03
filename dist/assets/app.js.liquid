@@ -709,21 +709,52 @@ $(document).ready(function() {
 
 // No More jQuery
 document.addEventListener("DOMContentLoaded", function() {
-  // Mobile Menu Trigger
-  var mbMenu = document.querySelector('#menuTrigger');
-  mbMenu.addEventListener('click', function(e) {
-    e.preventDefault();
-    var mainMenu = document.querySelector('.mb-main-menu');
-    jsClosed = mainMenu.classList.contains('js-closed');
-    jsOpen = mainMenu.classList.contains('js-open')
-    if (jsClosed === true) {
-      mainMenu.classList.remove('js-closed');
-      mainMenu.classList.add('js-open');
-      mainMenu.velocity({ height: '300px' }, { duration: 300 });
-    } else if (jsOpen === true) {
-      mainMenu.classList.remove('js-open');
-      mainMenu.classList.add('js-closed');
-      mainMenu.velocity({ height: 0 }, { duration: 300 });
+  // Search function
+  var headerSearch = document.querySelectorAll('.js-search');
+  for (var i = 0; i < headerSearch.length; i++) {
+    headerSearch[i].addEventListener('click', function(e) {
+
+      var target = e.target;
+      var mbTarget = document.querySelector('.mobile-search');
+      var mbTargetImg = document.querySelector('.mobile-search img');
+      var dkTarget = document.querySelector('.desktop-search');
+      var dkTargetImg = document.querySelector('.desktop-search img');
+      var dur = { duration: 300 };
+      function searchOpenCheck() {
+        var form = document.querySelector('.theme-header form');
+        var isOpen = form.classList.contains('js-open');
+        if (isOpen === false) {
+          form.classList.add('js-open');
+          form.velocity({ height: '110px' }, dur);
+        } else {
+          form.classList.remove('js-open');
+          form.velocity({ height: 0 }, dur);
+        }
+      }
+
+      if (target == mbTarget || target == mbTargetImg) {
+        searchOpenCheck();
+      } else if (target == dkTarget || dkTargetImg) {
+        searchOpenCheck();
+      }
+    });
+  }
+
+  // Mobile Menu
+  var hamburger = document.querySelector('.js-mobile-menu');
+  var mobileMenu = document.querySelector('.mobile-menu');
+  hamburger.addEventListener('click', function(e) {
+    var target = e.target;
+    if (target.tagName === 'LABEL') {
+      var isOpen = mobileMenu.classList.contains('js-open');
+      var dur = { duration: 300 };
+      if (isOpen === false) {
+        mobileMenu.classList.add('js-open');
+        mobileMenu.velocity({ width: '80%' }, dur);
+      } else {
+        mobileMenu.classList.remove('js-open');
+        mobileMenu.velocity({ width: 0 }, dur);
+      }
     }
   });
 });

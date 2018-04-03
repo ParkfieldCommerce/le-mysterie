@@ -1,40 +1,43 @@
-<div class="mobile-header">
-  <div class="menu" id="menuTrigger">
+<nav class="mobile-header l-hide xl-hide">
+  <div class="logo">
+    <a href="{{ shop.url }}">
+      <img src="{{ logo | img_url:'master' }}" alt="{{ logo_alt }}">
+    </a>
+  </div>
+  <div class="menu js-mobile-menu">
     <input type="checkbox" id="change-hamburguer" />
     <a class="hamburguer" href="#">
       <span></span>
       <label for="change-hamburguer"></label>
     </a>
   </div>
-  <div class="logo">
-    <a href="/">
-      <img src="{{ logo | img_url:'master' }}" alt="{{ logo_alt }}">
-    </a>
-  </div>
-  <ul class="menu-options">
-    <li>
-      <a href="/account">
-        <img src="{{ 'ACCOUNT.png' | asset_url }}" alt="My Account">
-      </a>
-    </li>
-    <li>
+  <div class="options">
+    <div class="account">
+      {% if customer %}
+          <a href="/account"><img src="{{ 'account.png' | asset_url }}" alt="My Account"></a>
+        {% else %}
+          <a href="/account"><img src="{{ 'account.png' | asset_url }}" alt="My Account"></a>
+        {% endif %}
+    </div>
+    <div class="cart">
       <a href="/cart">
-        <img src="{{ 'CART.png' | asset_url }}" alt="My Cart">
+        {%- if cart.item_count > 0 -%}
+          <span data-cart-item-count>{{ cart.item_count }}</span>
+        {%- endif -%}
+        <img src="{{ 'cart.png' | asset_url }}" alt="Cart">
       </a>
-    </li>
+    </div>
     {%- if enable_search == true -%}
-      <li>
-        <a class="search-btn">
-          <img src="{{ 'SEARCH.png' | asset_url }}" alt="Search">
+      <div class="search js-search">
+        <a class="mobile-search">
+          <img src="{{ 'search.png' | asset_url }}" alt="Search">
         </a>
-      </li>
+      </div>
     {%- endif -%}
-  </ul>
-</div>
-<div class="mb-main-menu js-closed">
-  <ul>
+  </div>
+  <ul class="mobile-menu">
     {%- for link in linklists['main-menu'].links -%}
-      <li class="menu-item"><a href="{{link.url}}">{{ link.title }}</a></li>
+      <li class="mb-item">{{ link.title | link_to: link.url }}</li>
     {%- endfor -%}
   </ul>
-</div>
+</nav>

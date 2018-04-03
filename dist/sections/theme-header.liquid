@@ -16,8 +16,10 @@
   .banner p {
     color: {{ banner_text_col }};
   }
-  .main-header,
-  .mobile-header {
+  .desktop-header,
+  .mobile-header,
+  .theme-header,
+  .theme-header form {
     background: {{ header_bg }};
   }
   .menu-item a {
@@ -25,17 +27,13 @@
   }
 </style>
 <header class="theme-header" role="banner">
-  {%- if enable_banner == true -%}
-    <div class="banner">
-      <div class="container l">
-        <p>{{ banner_text }}</p>
-      </div>
-    </div>
-  {%- endif -%}
-  {%- include 'header-desktop' -%}
+  {%- include 'banner' -%}
+  <div class="container xl">
+    {%- include 'header-desktop' -%}
+  </div>
   {%- include 'header-mobile' -%}
+  {%- include 'form-search' -%}
 </header>
-
 {% schema %}
   {
     "name": "Header",
@@ -96,9 +94,40 @@
         "default": "#000"
       },
       {
+        "type": "header",
+        "content": "Search"
+      },
+      {
         "type": "checkbox",
         "id": "enable_search",
         "label": "Enable Search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "include_products",
+        "label": "Include Products",
+        "info": "Include Products in search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "include_articles",
+        "label": "Include Articles",
+        "info": "Include Articles in search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "include_pages",
+        "label": "Include Pages",
+        "info": "Include Pages in search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "search_show_button",
+        "label": "Show Button",
         "default": true
       }
     ]
