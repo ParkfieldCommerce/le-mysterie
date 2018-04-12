@@ -57,3 +57,37 @@ $transition: $transitionProperty $transitionSpeed $transitionStyle;
 // Misc.
 $logoWidth: {{ settings.logo_width | default: '450' | append: 'px' }};
 $prefixes: webkit moz ms spec;
+
+// Brandon font
+@font-face {
+  font-family: 'BrandonThin';
+  src: url({{ 'BrandonGrotesque-Thin.otf' | asset_url }}) format('otf'),
+       url({{ 'brandongrotesque-thin-webfont.woff' | asset_url }}) format('woff'),
+       url({{ 'brandongrotesque-thin-webfont.woff2' | asset_url }}) format('woff2');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'BrandonLight';
+  src: url({{ 'BrandonGrotesque-Light.otf' | asset_url }}) format('otf'),
+       url({{ 'brandongrotesque-light-webfont.woff' }}) format('woff'),
+       url({{ 'brandongrotesque-light-webfont.woff2' }}) format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'BrandonRegular';
+  src: url({{ 'BrandonGrotesque-Regular.otf' | asset_url }}) format('otf'),
+       url({{ 'brandongrotesque-regular-webfont.woff2' | asset_url }}) format('woff2'),
+       url({{ 'brandongrotesque-regular-webfont.woff' | asset_url }}) format('woff'),
+       url({{ 'brandongrotesque-regular-webfont.ttf' }}) format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'BrandonMedium';
+  src: url({{ 'BrandonGrotesque-Medium.otf' | asset_url }}) format('otf'),
+       url({{ 'brandongrotesque-medium-webfont.woff' | asset_url }}) format('woff'),
+       url({{ 'brandongrotesque-medium-webfont.woff2' | asset_url }}) format('woff2');
+  font-weight: 600;
+}

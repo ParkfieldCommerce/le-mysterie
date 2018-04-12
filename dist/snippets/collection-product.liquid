@@ -16,13 +16,15 @@
 
 <div class="collection-product {{ column_width }}{% if sold_out %} sold_out{% endif %}{% if on_sale %} on_sale{% endif %}">
   {% if product.featured_image %}
-    <a href="{{ product.url | within: collection }}">
+    <a class="image" href="{{ product.url | within: collection }}">
       <img srcset="{{ product.featured_image | img_url: 'x960' }} 2x" src="{{ product.featured_image | img_url: 'x960' }}" alt="{{ product.featured_image.alt | escape }}">
     </a>
   {% endif %}
 
-  <p>
-    <a href="{{ product.url | within: collection }}">{{ product.title }}</a><br>
+  <p class="info">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </p>
+  <p class="price">
     {% if on_sale %}
       {% if product.price_varies %}
         {{ 'product.on_sale_from_html' | t: price: sale_price }}
@@ -42,10 +44,14 @@
       <s>{{ product.compare_at_price | money }}</s>
     {% endif %}
   </p>
-
+  <div class="swatches">
+    
+  </div>
+  {% comment %}
   <p>
     <button {% if sold_out %}class="disabled" disabled{% else %}type="submit" name="add" data-quick-add="{{ product.first_available_variant.id }}"{% endif %}>
       <span id="AddToCartText">{% if sold_out %}{{ 'product.sold_out' | t }}{% else %}{{ 'product.add_to_cart' | t }}{% endif %}</span>
     </button>
   </p>
+  {% endcomment %}
 </div>

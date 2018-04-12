@@ -1,0 +1,64 @@
+{% assign settings = section.settings %}
+{% assign collection_init = settings.collection_init %}
+{% assign heading = settings.heading %}
+{% assign num_of_products = settings.num_of_products %}
+
+<section class="collection-slider">
+  <div class="container xl">
+    <h1 class="title">{{ heading }}</h1>
+    <div class="swiper-container" data-slides='{{ num_of_products }}'>
+      <div class="swiper-wrapper">
+        {%- for product in collections[collection_init].products -%}
+          <div class="swiper-slide">
+            <a href="{{product.url}}">
+              <div class="image">
+                {%- for image in product.images limit: 1 -%}
+                  <img src="{{ image.src | img_url:'master' }}" alt="{{ image.alt }}">
+                {%- endfor -%}
+              </div>
+              <div class="info">
+                <h3>{{ product.title | escape }}</h3>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+      <!-- Add Scrollbar -->
+      <div class="swiper-scrollbar"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Collection Slider",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "collection_init",
+        "label": "Pick a Collection"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "New Arrivals"
+      },
+      {
+        "type": "range",
+        "id": "num_of_products",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "label": "Number of products",
+        "default": 5
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection Slider",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}

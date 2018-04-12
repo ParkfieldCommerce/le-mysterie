@@ -709,6 +709,15 @@ $(document).ready(function() {
 
 // No More jQuery
 document.addEventListener("DOMContentLoaded", function() {
+  // Not Function
+  function not(selector, filter) {
+    try {
+      return document.querySelectorAll(selector + ":not(" + filter + ")");
+    } catch (e) {
+      console.log("something goes wrong");
+      return null;
+    }
+  }
   // Search function
   var headerSearch = document.querySelectorAll('.js-search');
   for (var i = 0; i < headerSearch.length; i++) {
@@ -757,4 +766,258 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   });
+
+  // Hero Slider
+  var findHero = document.querySelectorAll('.hero-slider');
+  if (findHero.length > 0) {
+
+    var swiperSlide = document.querySelectorAll('.hero.swiper-container .swiper-slide');
+    var options = {}
+
+    if (swiperSlide.length == 1) {
+      options = {
+        loop: false,
+        autoplay: false
+      }
+    } else {
+      options = {
+        direction: 'horizontal',
+        loop: true,
+
+        mousewheel: true,
+        keyboard: true,
+
+        speed: 700,
+        slidesPerView: 1,
+        autoplay: {
+          delay: 5000
+        }
+      }
+    }
+    var heroSwiper = new Swiper('.hero.swiper-container', options);
+  }
+
+  // Collection slider
+  var findCollectionSlider = document.querySelectorAll('.collection-slider');
+  if (findCollectionSlider.length > 0) {
+    var collectionSlider = document.querySelector('.collection-slider .swiper-container');
+    var numOfSlides = collectionSlider.getAttribute('data-slides');
+    var options = {
+      slidesPerView: numOfSlides,
+      direction: 'horizontal',
+      mousewheel: true,
+      keyboard: true,
+      freeMode: true,
+      scrollbar: {
+        el: '.swiper-scrollbar',
+        draggable: true,
+        hide: false
+      },
+      breakpoints: {
+        425: {
+          slidesPerView: 2
+        },
+        768: {
+          slidesPerView: 3
+        }
+      }
+    };
+    var collectionSwiper = new Swiper(collectionSlider, options);
+  }
+
+  // Instagram feed
+  var findIgFeed = document.querySelectorAll('.instagram-feed');
+  if (findIgFeed.length > 0) {
+    var igFeed = document.querySelector('.instagram-feed');
+    var userId = igFeed.getAttribute('data-userid');
+    var clientId = igFeed.getAttribute('data-clientid');
+    var accessToken = igFeed.getAttribute('data-accesstoken');
+    var limit = igFeed.getAttribute('data-photolimit');
+
+    {% raw %}
+    var igTemplate = '<div class="swiper-slide">'
+                    +'<a href="{{link}}" target="_blank" id="{{id}}">'
+                    +'<img src="{{image}}" />'
+                    +'</a>'
+                    +'</div>';
+    {% endraw %}
+
+    var instafeed = new Instafeed({
+      get: 'user',
+      userId: userId,
+      clientId: clientId,
+      accessToken: accessToken,
+      resolution: 'standard_resolution',
+      template: igTemplate,
+      sortBy: 'most-recent',
+      limit: limit,
+      links: false,
+      after: function() {
+        var igOptions = {
+          direction: 'horizontal',
+          slidesPerView: 4,
+          spaceBetween: 25,
+          slidesPerColumn: 2,
+          mousewheel: true,
+          keyboard: true,
+          freeMode: true,
+          breakpoints: {
+            425: {
+              slidesPerView: 2,
+              slidesPerColumn: 2
+            },
+            768: {
+              slidesPerView: 3
+            }
+          }
+        };
+        var igSwiperContainer = document.querySelector('.instagram-feed .swiper-container');
+        var igSwiper = new Swiper(igSwiperContainer, igOptions);
+      }
+    });
+    instafeed.run();
+  }
+
+  // Collection Page Functions
+  var collectionPg = document.querySelectorAll('.collection-pg');
+  if (collectionPg.length > 0) {
+
+    var filterBlock = document.querySelectorAll('.filter-block');
+    for (var i = 0; i < filterBlock.length; i++) {
+      filterBlock[i].addEventListener('click', function(e) {
+        var target = e.target;
+        if (target.tagName === 'A') {
+          var dataTrigger = target.getAttribute('data-trigger');
+          var icon = target.querySelector('i');
+          var isOpen = target.classList.contains('js-open');
+          var filterSlide = document.querySelectorAll('.js-filter-slide[data-trigger="'+dataTrigger+'"]');
+
+          if (isOpen === true) {
+            target.classList.remove('js-open');
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+
+            filterSlide.velocity({ height: 0 }, { duration: 500 });
+
+          } else {
+
+            target.classList.add('js-open');
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+
+            filterSlide.velocity({ height: '50px' }, { duration: 500 });
+
+          }
+        }
+      });
+    }
+  }
+
+  // Gift Certificate Page
+  var giftCertificate = document.querySelectorAll('.gift-certificate');
+  if (giftCertificate.length > 0){
+    var addGiftToCart = document.querySelector('#giftAdd');
+    addGiftToCart.addEventListener('click', function(e) {
+      // Amount
+      var amountTag = document.querySelector('.amount select');
+      var amount = amountTag.options[amountTag.selectedIndex].value;
+      // Quantity
+      var qtyTag = document.querySelector('.quantity select');
+      var quantity = qtyTag.options[qtyTag.selectedIndex].value;
+      // Name
+      var name = document.querySelector('.name').value;
+      // Email
+      var email = document.querySelector('.email').value;
+      // Recipient Name
+      var recipientName = document.querySelector('.recipient-name').value;
+      // Recipient Email
+      var recipientEmail = document.querySelector('.recipient-email').value;
+      // Recipient Name
+      var message = document.querySelector('.message').value;
+      // Deliver Virtually
+      var delVirtual = document.querySelector('#deliverVirtual').checked;
+      // Deliver Mail
+      var delMail = document.querySelector('#deliverMail').checked;
+      // Check if fields are checked
+      if (amount === 'Choose Amount' || quantity === 'Quantity' || name === '' || email === '' || recipientName === '' || recipientEmail === '' || message === '') {
+        alert('Some fields are missing!');
+        e.stopPropagation();
+      } else {
+        // Check if Delivery method is checked
+        if (delVirtual === true && delMail === true) {
+          alert('Cannot have both delivery methods checked');
+          e.stopPropagation();
+        } else if (delVirtual === false && delMail === false) {
+          alert('Please pick a delivery method');
+          e.stopPropagation();
+        } else {
+          var lineItems = {
+            "Name": name,
+            "Email": email,
+            "Recipient's Name": recipientName,
+            "Recipient's Email": recipientEmail,
+            "Message": message,
+            "Deliver virtually?": delVirtual,
+            "Deliver by mail?": delMail
+          };
+          var errChk = {
+            "success": function(data, textStatus, jqXHR) {
+              console.log('Added!');
+            },
+            "error": function(jqXHR, textStatus, errorThrown) {
+              alert('Error: '+errorThrown+'!');
+            }
+          };
+          CartJS.addItem(amount, quantity, lineItems, errChk);
+        }
+      }
+    });
+  }
+
+  // Schedule a Fitting Page
+  var schedFittingPg = document.querySelectorAll('.schedule-a-fitting');
+  if (schedFittingPg.length > 0) {
+    // Triggers/Buttons
+    var telTrigger = document.querySelector('.btn[data-trigger="tel"]');
+    var inStoreTrigger = document.querySelector('.btn[data-trigger="in-store"]');
+    var skypeBtn = document.querySelector('.btn-skype');
+    var closeBtn = document.querySelector('.btn-close');
+    var prevBtn = document.querySelector('.btn-prev');
+    var telDiv = document.querySelector('.telephone');
+    var inStoreDiv = document.querySelector('.in-store');
+
+    // Velocity Options
+    var open = { height: '200px' };
+    var inStoreOpen = { height: '1300px' };
+    var close = { height: 0 };
+    var noOpacity = { opacity: 0 };
+    var opacity = { opacity: 1 };
+    var noVisible = { visibility: 'hidden' };
+    var visible = { visibility: 'visible' };
+    var duration = { duration: 700 };
+
+    telTrigger.addEventListener('click', function() {
+      inStoreTrigger.velocity(noOpacity, noVisible, duration);
+      skypeBtn.velocity(noOpacity, noVisible, duration);
+      telDiv.velocity(open, duration);
+    });
+
+    closeBtn.addEventListener('click', function() {
+      inStoreTrigger.velocity(opacity, visible, duration);
+      skypeBtn.velocity(opacity, visible, duration);
+      telDiv.velocity(close, duration);
+    });
+
+    inStoreTrigger.addEventListener('click', function() {
+      telTrigger.velocity(noOpacity, noVisible, duration);
+      skypeBtn.velocity(noOpacity, noVisible, duration);
+      inStoreDiv.velocity(inStoreOpen, duration);
+    });
+
+    prevBtn.addEventListener('click', function() {
+      telTrigger.velocity(opacity, visible, duration);
+      skypeBtn.velocity(opacity, visible, duration);
+      inStoreDiv.velocity(close, duration);
+    });
+  }
 });

@@ -1,0 +1,133 @@
+{% assign settings = section.settings %}
+{% assign feature_image = settings.feature_image %}
+{% assign banner_text = settings.banner_text %}
+{% assign tel_num = settings.tel_num %}
+{% assign skype_username = settings.skype_username %}
+
+<style>
+  .banner-main {
+    background: linear-gradient(
+      rgba(0,0,0,0.4),
+      rgba(0,0,0,0.4)
+      ),
+      url({{ feature_image | img_url:'master' }});
+  }
+</style>
+<section class="schedule-a-fitting">
+  <div class="banner-main">
+    <h1>{{banner_text}}</h1>
+  </div>
+  <div class="container xl">
+    <p class="lead">{{ page.content | strip_html }}</p>
+    <div class="btn-container">
+      {%- if tel_num != blank -%}
+        <a class="btn" data-trigger="tel">Telephone</a>
+      {%- endif -%}
+
+      <a class="btn" data-trigger="in-store">In-store</a>
+
+      {%- if skype_username != blank -%}
+        <a class="btn btn-skype" href="skype:{{ skype_username }}?userinfo"><i class="fa fa-skype" aria-hidden="true"></i>Skype</a>
+      {%- endif -%}
+    </div>
+    <div class="info-container">
+
+      <div class="telephone" data-trigger="tel">
+        <a class="btn-close"><i class="fa fa-close"></i></a>
+        <p>Call us: <a href="tel:{{ tel_num }}">{{ tel_num }}</a></p>
+      </div>
+
+      <div class="in-store" data-trigger="in-store">
+        {% form 'contact' %}
+          {%- if form.posted_successfully? -%}
+            <p class="form-success-popup">
+              Thank you.<br>
+              A fit specialist will be in touch within 48 hours
+            </p>
+          {%- endif -%}
+
+          {{ form.errors | default_errors }}
+
+          <input type="hidden" name="contact[schedule-a-fitting]" value="Schedule a fitting form">
+
+          <div class="input-wrapper double">
+            <input type="text" id="contactFirstName" name="contact[firstName]" placeholder="First Name*" value="" required>
+          </div>
+          <div class="input-wrapper double">
+            <input type="text" id="contactLastName" name="contact[lastName]" placeholder="Last Name*" value="" required>
+          </div>
+
+          <div class="input-wrapper double">
+            <input type="email" id="contactEmail" name="contact[email]" placeholder="Email*" value="" required>
+          </div>
+          <div class="input-wrapper double">
+            <input type="tel" id="contactTel" name="contact[telephone]" placeholder="Telephone*" value="" required>
+          </div>
+
+          <div class="input-wrapper double">
+            <input type="text" id="contactCity" name="contact[city]" placeholder="City*" value="" required>
+          </div>
+          <div class="input-wrapper double">
+            <input type="number" id="contactZip" name="contact[zip]" placeholder="Zip*" value="" required>
+          </div>
+
+          <div class="input-wrapper">
+            <textarea id="contactBraSize" placeholder="What bra size are you currently wearing?" value="" name="contact[braSize]"></textarea>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="contactBraType" placeholder="What is your favorite type of bra" value="" name="contact[braType]"></textarea>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="contactSolution" placeholder="Are you looking for any specific solution" value="" name="contact[solution]"></textarea>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="contactMessage" placeholder="Anything else you want to share with us?" value="" name="contact[message]"></textarea>
+          </div>
+
+          <div class="btn-container">
+            <a class="btn btn-prev" id="previous">Previous</a>
+            <button type="submit" class="btn btn-submit">Submit</button>
+          </div>
+        {% endform %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Schedule a Fitting",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "feature_image",
+        "label": "Featured Image"
+      },
+      {
+        "type": "text",
+        "id": "banner_text",
+        "label": "Banner Text",
+        "default": "Want to find your perfect fit? We can help."
+      },
+      {
+        "type": "header",
+        "content": "Telephone"
+      },
+      {
+        "type": "text",
+        "id": "tel_num",
+        "label": "Telephone Number"
+      },
+      {
+        "type": "header",
+        "content": "Skype"
+      },
+      {
+        "type": "text",
+        "id": "skype_username",
+        "label": "Skype Username"
+      }
+    ]
+  }
+{% endschema %}

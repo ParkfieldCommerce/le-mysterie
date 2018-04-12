@@ -1,0 +1,123 @@
+.hero-slider,
+.hero-no-slider {
+  height: 730px;
+  @include m() {
+    height: 530px;
+  }
+  @include s() {
+    height: 430px;
+  }
+  .swiper-container,
+  .swiper-slide,
+  .hero-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .hero-wrapper {
+    @include flex();
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .swiper-slide,
+  .inner {
+    @include flex();
+  }
+  .swiper-slide {
+    position: relative;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .inner {
+    position: absolute;
+    width: 25%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    padding: 20px 0px;
+    @include m() {
+      width: 50%;
+    }
+    @include s() {
+      width: 60%;
+      padding: 0;
+    }
+    &.align-left {
+      left: 5%;
+      -webkit-transform: translateX(70%);
+              transform: translateX(70%);
+      @include m() {
+        left: 2%;
+        -webkit-transform: translateX(0%);
+                transform: translateX(0%);
+      }
+      @include s() {
+        left: 2%;
+        -webkit-transform: translateX(0%);
+                transform: translateX(0%);
+      }
+    }
+    &.align-center {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+              transform: translateX(-50%);
+    }
+    &.align-right {
+      right: 5%;
+      -webkit-transform: translateX(-70%);
+              transform: translateX(-70%);
+      @include m() {
+        right: 1%;
+        -webkit-transform: translateX(0%);
+                transform: translateX(0%);
+      }
+      @include s() {
+        right: 1%;
+        -webkit-transform: translateX(0%);
+                transform: translateX(0%);
+      }
+    }
+  }
+  .heading {
+    @include brandon-regular(50px);
+    color: #000;
+    @include m() {
+      font-size: 40px;
+    }
+    @include s() {
+      font-size: 30px;
+    }
+  }
+  .lead {
+    @include brandon-light(18px);
+    margin-bottom: 2em;
+    color: #7d7d7d;
+    @include m() {
+      font-size: 17px;
+      margin-bottom: 1em;
+    }
+    @include s() {
+      font-size: 16px;
+      margin-bottom: 1em;
+    }
+  }
+  .btn {
+    width: 180px;
+    text-align: center;
+    color: #fff;
+    background: #000;
+    text-decoration: none;
+    padding: 15px 0;
+    text-transform: uppercase;
+    @include brandon-medium(18px);
+    &:hover {
+      background: #3a3a3a;
+      @include transition();
+    }
+  }
+}

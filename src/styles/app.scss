@@ -34,7 +34,14 @@
 @import url('templates/cart.scss');
 
 /* Sections ==================================================================*/
-// Section specific styles here
+@import url('sections/hero-slider.scss');
+@import url('sections/banner-double-btn.scss');
+@import url('sections/collection-slider.scss');
+@import url('sections/instagram-feed.scss');
+
+/* Pages ==================================================================*/
+@import url('pages/gift-certificate.scss');
+@import url('pages/schedule-a-fitting.scss');
 
 /* Modules ===================================================================*/
 @import url('modules/header.scss');

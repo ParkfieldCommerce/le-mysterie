@@ -1,0 +1,64 @@
+.banner-double-btn {
+  height: 250px;
+  @include flex();
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  .title {
+    @include brandon-regular(60px);
+    text-align: center;
+    color: #3f3f3f;
+    width: 100%;
+    @include m() {
+      @include brandon-regular(50px);
+    }
+    @include s() {
+      @include brandon-regular(40px);
+      margin-bottom: 5px;
+    }
+  }
+
+  .buttons-container {
+    @include flex();
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row wrap;
+            flex-direction: row wrap;
+    width: 60%;
+    margin: auto;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    @include m() {
+      width: 100%;
+    }
+    @include s() {
+      width: 100%;
+    }
+    a {
+      width: 45%;
+      padding: 20px 0;
+      margin: 0 5px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #000;
+      background: #eeeeee;
+      @include brandon-medium(18px);
+      @include s() {
+        width: 50%;
+        @include brandon-medium(12px);
+      }
+      img {
+        margin-left: 10px;
+      }
+      &:hover {
+        background: lighten(#eeeeee, 10%);
+        @include transition();
+      }
+    }
+  }
+}

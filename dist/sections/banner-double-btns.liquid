@@ -1,0 +1,76 @@
+{% assign settings = section.settings %}
+{% assign heading = settings.heading %}
+{% assign btn_1 = settings.btn_1 %}
+{% assign btn_1_href = settings.btn_1_href %}
+{% assign btn_2 = settings.btn_2 %}
+{% assign btn_2_href = settings.btn_2_href %}
+{% assign arrow = 'arrow-right.png' %}
+{% assign background = settings.background %}
+
+<style>
+  .banner-double-btn {
+    background: {{ background }};
+  }
+</style>
+
+<section class="banner-double-btn">
+  <div class="container xl">
+    <h1 class="title">{{ heading }}</h1>
+    <div class="buttons-container">
+      <a href="{{ btn_1_href }}">{{ btn_1 }} <img src="{{ arrow | asset_url }}"></a>
+      <a href="{{ btn_2_href }}">{{ btn_2 }} <img src="{{ arrow | asset_url }}"></a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Double Button Banner",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Find Your Perfect Fit"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Button Settings"
+      },
+      {
+        "type": "text",
+        "id": "btn_1",
+        "label": "Left Button Text",
+        "default": "Find your fit"
+      },
+      {
+        "type": "url",
+        "id": "btn_1_href",
+        "label": "Left Button URL"
+      },
+      {
+        "type": "text",
+        "id": "btn_2",
+        "label": "Right Button Text",
+        "default": "Schedule a fitting"
+      },
+      {
+        "type": "url",
+        "id": "btn_2_href",
+        "label": "Right Button URL"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner Double Button",
+        "category": "Banners"
+      }
+    ]
+  }
+{% endschema %}

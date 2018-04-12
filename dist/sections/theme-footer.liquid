@@ -7,6 +7,10 @@
 {% assign footer_banner_href = settings.footer_banner_href %}
 {% assign footer_bg = settings.footer_bg %}
 {% assign enable_social_media = settings.enable_social_media %}
+{% assign facebook_href = settings.facebook_href %}
+{% assign twitter_href = settings.twitter_href %}
+{% assign pinterest_href = settings.pinterest_href %}
+{% assign instagram_href = settings.instagram_href %}
 
 {% assign form_success = 'subscribe.confirmation' | t %}
 {% assign form_email_placeholder = 'form.email' | t %}
@@ -22,16 +26,7 @@
   }
 </style>
 <footer class="theme-footer" role="contentinfo">
-  {%- if enable_footer_banner == true -%}
-    <div class="footer-banner">
-      <h1 class="title">{{ footer_banner_heading }}</h1>
-      {%- if footer_banner_href != blank -%}
-        <a href="{{ footer_banner_href }}" class="lead">{{ footer_banner_lead }}</a>
-      {%- else -%}
-        <p class="lead">{{ footer_banner_lead }}</p>
-      {%- endif -%}
-    </div>
-  {%- endif -%}
+  {%- include 'footer-banner' -%}
   <div class="container xl">
     <div class="main-footer">
       <div class="footer-menu">
@@ -42,24 +37,12 @@
         </ul>
       </div>
       <div class="subscribe-form">
-        {% form 'customer' %}
-          {{ form.errors | default_errors }}
-
-          {% if form.posted_successfully? %}
-            <p class="note form-success">{{ form_success }}</p>
-          {% else %}
-            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ form_email_placeholder }}" name="contact[email]" aria-label="{{ form_email_placeholder }}" autocorrect="off" autocapitalize="off">
-            <input type="hidden" name="contact[tags]" value="newsletter">
-            <input type="hidden" name="customer[accepts_marketing]" value="" />
-            <button type="submit" name="subscribe" class="subscribe-btn">Sign Up</button>
-          {% endif %}
-        {% endform %}
+        {%- include 'footer-subscribe-form' -%}
       </div>
-      {%- if enable_social_media == true -%}
-        <div class="social-media">
-
-        </div>
-      {%- endif -%}
+      {%- include 'footer-social-media' -%}
+      <div class="copyright">
+        <small>&copy; {{ 'now' | date: "%Y" }} <a href="/">{{ shop.name }}</a>. A Komar brand. All Rights Reserved. </small>
+      </div>
     </div>
   </div>
 </footer>
@@ -111,10 +94,34 @@
         "default": "#ffffff"
       },
       {
+        "type": "header",
+        "content": "Social Media"
+      },
+      {
         "type": "checkbox",
         "id": "enable_social_media",
         "label": "Enable Social Media",
         "default": true
+      },
+      {
+        "type": "url",
+        "id": "facebook_href",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "twitter_href",
+        "label": "Twitter URL"
+      },
+      {
+        "type": "url",
+        "id": "pinterest_href",
+        "label": "Pinterest URL"
+      },
+      {
+        "type": "url",
+        "id": "instagram_href",
+        "label": "Instagram URL"
       }
     ]
   }

@@ -1,0 +1,24 @@
+{%- if enable_social_media == true -%}
+  <div class="social-media">
+    {%- if facebook_href != blank -%}
+      <a target="_blank" href="{{ facebook_href }}" data-social="facebook">
+        {% include 'icon' with 'facebook' %}
+      </a>
+    {%- endif -%}
+    {%- if twitter_href != blank -%}
+      <a target="_blank" href="{{ twitter_href }}" data-social="twitter">
+        {% include 'icon' with 'twitter' %}
+      </a>
+    {%- endif -%}
+    {%- if pinterest_href != blank -%}
+      <a target="_blank" href="{{ pinterest_href }}" data-social="pinterest">
+        {% include 'icon' with 'pinterest' %}
+      </a>
+    {%- endif -%}
+    {%- if instagram_href != blank -%}
+      <a target="_blank" href="{{ instagram_href }}" data-social="instagram">
+        {% include 'icon' with 'instagram' %}
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

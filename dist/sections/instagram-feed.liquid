@@ -1,0 +1,65 @@
+{% assign settings = section.settings %}
+{% assign user_id = settings.user_id %}
+{% assign client_id = settings.client_id %}
+{% assign token = settings.token %}
+{% assign num_photos = settings.num_photos %}
+{% assign user_name = settings.user_name %}
+
+<section class="instagram-feed"
+         data-userid="{{ user_id }}"
+         data-clientid="{{ client_id }}"
+         data-accesstoken="{{ token }}"
+         data-photolimit="{{ num_photos }}">
+  <div class="container xl">
+    <h1 class="heading">@{{ user_name }}</h1>
+    <div class="swiper-container">
+      <div class="swiper-wrapper" id="instafeed">
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Instagram Feed",
+    "settings": [
+      {
+        "type": "text",
+        "id": "user_id",
+        "label": "User ID",
+        "info": "User ID - use self for sandbox mode"
+      },
+      {
+        "type": "text",
+        "id": "client_id",
+        "label": "Client ID",
+        "info": "You can find this in Instagram's developer site",
+        "default": "f54ddc1648064573ace6ecf41d883f28"
+      },
+      {
+        "type": "text",
+        "id": "token",
+        "label": "Instagram Token"
+      },
+      {
+        "type": "text",
+        "id": "user_name",
+        "label": "IG User Name"
+      },
+      {
+        "type": "range",
+        "id": "num_photos",
+        "label": "Number of photos",
+        "min": 3,
+        "max": 12,
+        "step": 1,
+        "default": 3
+      }
+    ],
+    "presets": [
+      {
+        "name": "Instagram Feed",
+        "category": "Instagram"
+      }
+    ]
+  }
+{% endschema %}

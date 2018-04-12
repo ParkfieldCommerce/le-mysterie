@@ -1,0 +1,90 @@
+<section class="gift-certificate">
+  <div class="container xl">
+    <div class="row">
+      <div class="column l6 m6 s12">
+        <h1 class="heading l-hide m-hide">{{ page.title }}</h1>
+        <img class="featured-image" src="{{ section.settings.featured_image | img_url:'master' }}" alt="{{ section.settings.image_alt }}">
+      </div>
+      <div class="column l6 m6 s12">
+        <h1 class="heading s-hide">{{ page.title }}</h1>
+        <p class="description">{{ page.content }}</p>
+
+        <div class="certificate-form">
+
+          <div class="input-wrapper">
+            <div class="amount">
+              <select>
+                <option disabled selected>Choose Amount</option>
+                {%- for product in collections.all.products -%}
+                  {%- if product.handle == 'gift-certificate' -%}
+                    {%- for variant in product.variants -%}
+                      <option value="{{ variant.id }}">{{ variant.title }}</option>
+                    {%- endfor -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+            </div>
+            <div class="quantity">
+              <select>
+                <option disabled selected>Quantity</option>
+                {%- for i in (1..10) -%}
+                  <option value="{{ i }}">{{ i }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <input class="name" type="text" value="" placeholder="Sender Name*">
+          </div>
+
+          <div class="input-wrapper">
+            <input class="email" type="text" value="" placeholder="Sender Email*">
+          </div>
+
+          <div class="input-wrapper">
+            <input class="recipient-name" type="text" value="" placeholder="Recipient Name*">
+          </div>
+
+          <div class="input-wrapper">
+            <input class="recipient-email" type="text" value="" placeholder="Recipient Email*">
+          </div>
+
+          <div class="input-wrapper">
+            <textarea class="message" placeholder="Message*" value=""></textarea>
+          </div>
+
+          <div class="input-wrapper double">
+            <input type="checkbox" id="deliverVirtual" class="checkbox" name="deliverVirtual">
+            <label for="deliverVirtual">Deliver Virtually</label>
+          </div>
+          <div class="input-wrapper double">
+            <input type="checkbox" id="deliverMail" class="checkbox" name="deliverMail">
+            <label for="deliverMail">Deliver By Mail</label>
+          </div>
+
+          <a class="btn" id="giftAdd">Add To Cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Gift Certificate",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "featured_image",
+        "label": "Featured Image"
+      },
+      {
+        "type": "text",
+        "id": "image_alt",
+        "label": "Image Alt",
+        "default": "Le Mystere"
+      }
+    ]
+  }
+{% endschema %}

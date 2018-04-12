@@ -1,5 +1,159 @@
 /* Collection ================================================================*/
 
-.template-collection {
+.collection-pg {
+  background: #fff;
+  .heading {
+    text-align: center;
+    @include brandon-regular(80px);
+    @include m() {
+      font-size: 60px;
+    }
+    @include s() {
+      font-size: 40px
+    }
+  }
+  .filter-row {
+    @include flex();
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 60%;
+    margin: auto;
+  }
 
+  .filter-block {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    padding: 0 5px;
+    text-align: center;
+    .select-wrapper {
+      width: 100%;
+      select {
+        border: 0;
+        background: #fff;
+        padding: 0 20px;
+        text-transform: uppercase;
+        @include brandon-light(16px);
+      }
+      &:after {
+        @include flex();
+        font-size: 16px;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        right: -1px;
+        top: -5px;
+      }
+    }
+  }
+  .js-filter-trigger {
+    height: 50px;
+    @include flex();
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    @include brandon-light(16px);
+    color: #000;
+    text-transform: uppercase;
+    .icon {
+      padding-left: 20px;
+      padding-bottom: 5px;
+      pointer-events: none;
+    }
+  }
+  .filter-dropdown {
+    margin-bottom: 50px;
+    @include flex();
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+  }
+  .js-filter-slide {
+    background: #ebebeb;
+    overflow-x: hidden;
+    height: 0;
+    padding: 0 20px;
+    @include flex();
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+
+    ul {
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+    }
+    li {
+      padding: 0 10px;
+      position: relative;
+      cursor: pointer;
+      &:after {
+        position: absolute;
+        content: '';
+        border-bottom: 0;
+        bottom: 0;
+        left: 50%;
+        width: 0%;
+        margin: auto;
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+      }
+      &:hover {
+        &:after {
+          @include transition();
+          border-bottom: 1px solid #000;
+          width: 90%;
+        }
+      }
+    }
+    .active {
+      text-decoration: underline;
+    }
+  }
+
+  .collection-product {
+    .image {
+      display: block;
+      img {
+        display: block;
+        margin: auto;
+      }
+    }
+    .info {
+      text-align: center;
+      a {
+        @include brandon-regular(26px);
+        text-decoration: none;
+        color: #000;
+        margin-bottom: 10px;
+      }
+    }
+    .price {
+      text-align: center;
+      @include brandon-light(16px);
+    }
+  }
 }

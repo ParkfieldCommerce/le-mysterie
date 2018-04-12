@@ -1,46 +1,69 @@
 <!-- /snippets/template-collection.liquid -->
 
-{% assign column_width = 'column l4 m6 s12' %}
+{% assign column_width = 'column l3 m6 s12' %}
 {% assign pagination = pagination | default: 50 %}
 
 {% paginate collection.products by pagination %}
-
-  <div class="container l" data-section-type="collection">
-    <header>
-      <div class="row">
-        <div class="column l6 m12 s12">
-          <h1>{{ collection.title }}</h1>
-        </div>
-        <div class="column l6 m12 s12 l-right">
-          {% if collection.description != blank %}
-            <div class="rte">
-              {{ collection.description }}
-            </div>
-          {% endif %}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="column l6 m12 s12">
-          {% include 'collection-view' %}
-        </div>
-        <div class="column l6 m12 s12 l-right">
+  <section class="collection-pg" data-section-type="collection">
+    <div class="container xl">
+      <h1 class="heading">{{ collection.title }}</h1>
+      <div class="filter-row">
+        <div class="filter-block">
           {% include 'collection-sort' %}
         </div>
-      </div>
-    </header>
-
-    <section class="row">
-      {% for product in collection.products %}
-        {% include 'collection-product' %}
-      {% else %}
-        <div class="column l12">
-          <p class="h4">{{ 'collection.no_matches' | t }}</p>
+        <div class="filter-block">
+          <a data-trigger="size" class="js-filter-trigger">Size {%- include 'icon' with 'chevron-down' -%}</a>
         </div>
-      {% endfor %}
-    </section>
+        <div class="filter-block">
+          <a data-trigger="style" class="js-filter-trigger">Style {%- include 'icon' with 'chevron-down' -%}</a>
+        </div>
+        <div class="filter-block">
+          <a data-trigger="color" class="js-filter-trigger">Color {%- include 'icon' with 'chevron-down' -%}</a>
+        </div>
+        <div class="filter-block">
+          <a data-trigger="price" class="js-filter-trigger">Price {%- include 'icon' with 'chevron-down' -%}</a>
+        </div>
+      </div>
+      <div class="filter-dropdown">
+        <div class="js-filter-slide" data-trigger="size">
+          <ul>
+            <li>S</li>
+            <li>M</li>
+            <li>L</li>
+            <li>XL</li>
+          </ul>
+        </div>
+        <div class="js-filter-slide" data-trigger="style">
+          <ul>
+            <li>Style 1</li>
+            <li>Style 2</li>
+            <li>Style 3</li>
+          </ul>
+        </div>
+        <div class="js-filter-slide" data-trigger="color">
+          <ul>
+            <li>color 1</li>
+            <li>color 2</li>
+          </ul>
 
-    {% include 'theme-pagination' with 'hr' %}
-  </div>
-
+        </div>
+        <div class="js-filter-slide" data-trigger="price">
+          <ul>
+            <li>$</li>
+            <li>$$</li>
+            <li>$$$</li>
+            <li>$$$$</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        {% for product in collection.products %}
+          {% include 'collection-product' %}
+        {% else %}
+          <p class="h4">{{ 'collection.no_matches' | t }}</p>
+        {% endfor %}
+      </div>
+      {% include 'theme-pagination' with 'hr' %}
+    </div>
+  </section>
 {% endpaginate %}

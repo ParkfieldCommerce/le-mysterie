@@ -1,0 +1,83 @@
+{% assign settings = section.settings %}
+{% assign feature_img = settings.feature_img %}
+{% assign text_placement = settings.text_placement %}
+{% assign heading = settings.heading %}
+{% assign lead = settings.lead %}
+{% assign btn_text = settings.btn_text %}
+{% assign btn_href = settings.btn_href %}
+
+<style>
+  .hero-wrapper {
+    background: url({{ feature_img | img_url: 'master' }});
+    background-position: 50% 50%;
+    background-size: cover;
+  }
+</style>
+
+<section class="hero-no-slider">
+  <div class="hero-wrapper">
+    <div class="inner align-{{ text_placement }}">
+      {%- if heading != blank -%}
+        <h1 class="heading">{{ heading }}</h1>
+      {%- endif -%}
+      {%- if lead != blank -%}
+        <p class="lead">{{ lead }}</p>
+      {%- endif -%}
+      {%- if btn_href != blank -%}
+        <a class="btn" href="{{ btn_href }}">{{ btn_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Hero No Slider",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "feature_img",
+        "label": "Featured Image"
+      },
+      {
+        "type": "radio",
+        "id": "text_placement",
+        "label": "Text Box Placement",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Sparkle and Shine"
+      },
+      {
+        "type": "textarea",
+        "id": "lead",
+        "label": "Lead",
+        "default": "Classic elegance and unmatched support when it comes to our Sophia Lace, you really can have it all"
+      },
+      {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button Text",
+        "default": "Shop Now"
+      },
+      {
+        "type": "url",
+        "id": "btn_href",
+        "label": "Button URL"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero No Slider",
+        "category": "Hero"
+      }
+    ]
+  }
+{% endschema %}

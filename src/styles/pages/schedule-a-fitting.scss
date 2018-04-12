@@ -1,0 +1,252 @@
+.schedule-a-fitting {
+  background: #fff;
+  .banner-main {
+    height: 500px;
+    background-position: 50% 50%;
+    background-size: cover;
+    @include flex();
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    @include m() {
+      height: 300px;
+    }
+    @include s() {
+      height: 300px;
+    }
+    h1 {
+      @include brandon-regular(58px);
+      text-align: center;
+      color: #fff;
+      width: 60%;
+      padding: 0 7%;
+      margin: 0;
+      @include m() {
+        font-size: 40px;
+        width: 80%;
+      }
+      @include s() {
+        font-size: 30px;
+        width: 90%;
+      }
+    }
+  }
+
+  .container {
+    padding: 4em 0;
+    @include m() {
+      padding: 3em 0;
+    }
+    @include s() {
+      padding: 2em 0;
+    }
+  }
+
+  .lead {
+    @include brandon-regular(30px);
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    margin-bottom: 0;
+    line-height: 39px;
+    color: #8e8e8e;
+    @include m() {
+      width: 75%;
+      font-size: 25px;
+    }
+    @include s() {
+      width: 90%;
+      font-size: 25px;
+    }
+  }
+
+  .btn-container {
+    width: 70%;
+    @include flex();
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin: 4em auto;
+    @include m() {
+      width: 100%;
+      margin: 2em auto;
+    }
+    @include s() {
+      width: 100%;
+      margin: 1em auto;
+    }
+  }
+  .btn,
+  button {
+    background: #000;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 20px 0;
+    @include brandon-medium(18px);
+    position: relative;
+    margin: 0 1em;
+    border: 0;
+    height: auto;
+    line-height: initial;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    @include m() {
+      margin: 0 0.5em;
+    }
+    @include s() {
+      -webkit-box-flex: 100%;
+          -ms-flex: 100%;
+              flex: 100%;
+      margin-bottom: 20px;
+    }
+    i {
+      font-size: 30px;
+      position: absolute;
+      left: 30%;
+      top: 15px;
+      @include m() {
+        left: 25%;
+        top: 18px;
+      }
+    }
+    &.btn-prev {
+      background: rgba(234, 234, 234, 1);
+      color: #000;
+    }
+  }
+  .info-container {
+    @include flex();
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  .telephone {
+    width: 70%;
+    text-align: center;
+    margin: auto;
+    border: 0;
+    height: 0px;
+    overflow-x: hidden;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+
+    @include m() {
+      width: 90%;
+    }
+    @include s() {
+      width: 100%;
+    }
+    a,
+    p {
+      text-decoration: none;
+      color: #000;
+      @include brandon-light(40px);
+      @include s() {
+        font-size: 25px;
+      }
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0 10px;
+      cursor: pointer;
+    }
+  }//.telephone
+  .in-store {
+    width: 70%;
+    margin: auto;
+    overflow-x: hidden;
+    height: 0;
+    @include m() {
+      width: 95%;
+    }
+    @include s() {
+      width: 100%;
+    }
+    form#contact_form {
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+    }
+    .input-wrapper {
+      width: 100%;
+      margin-bottom: 10px;
+      position: relative;
+      &:after {
+        position: absolute;
+        content: '';
+        width: 0%;
+        border-bottom: 1px solid #e5e5e5;
+        bottom: 0;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+      }
+      &:focus-within {
+        &:after {
+          width: 100%;
+          @include transition();
+        }
+      }
+      &.double {
+        width: 50%;
+        @include s() {
+          width: 100%;
+        }
+      }
+      input,
+      textarea {
+        width: 97%;
+        margin: auto;
+        background: #fff;
+        border: 0;
+        border-bottom: 1px solid #000;
+        color: #000;
+        @include inputPlaceholder(#000);
+        @include brandon-regular(24px);
+        height: auto;
+        padding: 20px 0 2px 10px;
+        @include s() {
+          font-size: 18px;
+        }
+      }
+      textarea {
+        resize: none;
+        height: 170px;
+      }
+    }
+  }//.in-store
+}
