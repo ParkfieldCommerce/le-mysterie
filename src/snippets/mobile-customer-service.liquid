@@ -1,0 +1,26 @@
+{% assign uniqueCategories = '' %}
+{%- for block in section.blocks -%}
+  {%- unless uniqueCategories contains block.settings.category -%}
+    {%- if uniqueCategories == '' -%}
+      {% assign uniqueCategories = uniqueCategories | append: block.settings.category %}
+    {%- else -%}
+      {% assign uniqueCategories = uniqueCategories | append: '+' | append: block.settings.category %}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}
+{% assign categoriesArray = uniqueCategories | replace: "_", " " | split: '+' %}
+
+<div class="mb-list">
+  {%- for category in categoriesArray -%}
+    {% assign modCategory = category | replace: ' ', '_' %}
+    <h2>{{ category }}</h2>
+    {%- for block in section.blocks -%}
+      {%- if block.settings.category == modCategory -%}
+        <ul class="accordion">
+          <h3 class="block"><i class="fa fa-plus" aria-hidden="true"></i>{{ block.settings.question }}</h3>
+          <p class="mb-pane">{{ block.settings.pane }}</p>
+        </ul>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+</div>

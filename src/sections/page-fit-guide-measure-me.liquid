@@ -1,0 +1,42 @@
+<!--===========================================================
+===============================================================
+DO NOT DEV UNTIL FURTHER NOTICE
+===============================================================
+===============================================================-->
+
+<div class="measure-me-section m-hide s-hide">
+  <div class="schema-content">
+    {{ section.settings.measure_content }}
+  </div>
+  <div class="fit-calc">
+    <h2>Fid the Le Mystère Bra that is perfect for you:</h2>
+    <div class="step-one">
+      <h3>1. Measure band size</h3>
+      <p>Remove your upper garments, but leave your bra on. Make sure you are wearing an unpadded bra. Measure around you rib cage, below the bra. Keep the tape snug and flat across your back. Round the number to the nearest quarter inch.</p>
+    </div>
+    <div class="select-container">
+      <div class="select-wrapper">
+        <select class="" name="">
+
+        </select>
+      </div>
+      <div class="select-wrapper">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+ {
+   "name": "Measure Me",
+   "settings": [
+     {
+       "type": "textarea",
+       "id": "measure_content",
+       "label": "Content",
+       "info": "Place video iframe or text here"
+     }
+   ]
+ }
+{% endschema %}

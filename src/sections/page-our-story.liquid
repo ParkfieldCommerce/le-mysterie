@@ -1,0 +1,54 @@
+<style>
+  .story-banner {
+    background: linear-gradient(
+      rgba(0,0,0,0.4),
+      rgba(0,0,0,0.4)
+      ),
+      url({{ section.settings.feature_image | img_url:'master' }});
+  }
+</style>
+<section class="our-story-pg">
+  <div class="story-banner">
+    <h1>{{ page.title }}</h1>
+  </div>
+  <div class="container xl">
+    <div class="story-body">
+      <h4>Our story</h4>
+      <p>{{ section.settings.our_story }}</p>
+      <h4>our mission</h4>
+      <p>{{ section.settings.our_mission }}</p>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Our Story",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "feature_image",
+        "label": "Featured Image"
+      },
+      {
+        "type": "header",
+        "content": "Our Story"
+      },
+      {
+        "type": "textarea",
+        "id": "our_story",
+        "label": "Our Story body",
+        "default": "Text goes here"
+      },
+      {
+        "type": "header",
+        "content": "Our Mission"
+      },
+      {
+        "type": "textarea",
+        "id": "our_mission",
+        "label": "Our Misson Body",
+        "default": "Text goes here"
+      }
+    ]
+  }
+{% endschema %}

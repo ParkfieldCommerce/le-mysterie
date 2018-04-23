@@ -1,0 +1,102 @@
+<!-- /templates/page.contact.liquid -->
+<style>
+  .banner-contact {
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0,0,0,0.4)
+      ),
+      url({{ section.settings.feature_image | img_url:'master' }});
+  }
+</style>
+<section class="contact-us-page">
+  <div class="banner-contact">
+    <h1>{{ page.title }}</h1>
+  </div>
+  <div class="container xl">
+    <h2 class="heading s-hide">How can we help?</h2>
+    <p class="lead m-hide l-hide">{{ section.settings.mobile_des }}</p>
+    <div class="btn-container s-hide">
+      <a class="btn email">
+        <div class="email-icon">
+          <img src="{{ 'email-icon.png' | asset_url }}" alt="Email Us">
+        </div>
+        Email us <img src="{{ 'arrow-right.png' | asset_url }}">
+      </a>
+      <a class="btn call">
+        <div class="call-icon">
+          <img src="{{ 'call-us.png' | asset_url }}" alt="Call us">
+        </div>
+        Call us <img src="{{ 'arrow-right.png' | asset_url }}">
+      </a>
+    </div>
+    <div class="phone-popup">
+      <a class="btn-close"></a>
+      <h1>{{ section.settings.tel_num }}</h1>
+      <p>{{ page.content }}</p>
+    </div>
+    <div class="email-form">
+      {% form 'contact' %}
+        {{ form.errors | default_errors }}
+
+        {% if form.posted_successfully? %}
+          <p class="note form-success">
+            Thank you. <br>
+            A fit specialist will be in touch within 48 hours.
+          </p>
+        {% endif %}
+
+        <div class="input-container double">
+          <input type="text" id="contactFirstName" placeholder="First Name*" name="contact[firstName]" value="" required>
+        </div>
+        <div class="input-container double">
+          <input type="text" id="contactLastName" name="contact[lastName]" value="" placeholder="Last Name*" required>
+        </div>
+        <div class="input-container double">
+          <input type="email" id="contactEmail" placeholder="Email Address*" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+        </div>
+        <div class="input-container double">
+          <input type="tel" id="ContactFormPhone" placeholder="Telephone*" name="contact[phone]" pattern="[0-9\-]*" value="" required>
+        </div>
+
+        <div class="input-container">
+          <input type="text" id="contactSubject" name="contact[subject]" placeholder="Subject*" value="" required>
+        </div>
+        <div class="input-container">
+          <textarea id="ContactFormMessage" placeholder="Message*" name="contact[message]" required></textarea>
+        </div>
+
+        <button class="btn" type="submit" name="formSubmit">Submit</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Contact Us",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "feature_image",
+        "label": "Featured Image"
+      },
+      {
+        "type": "text",
+        "id": "tel_num",
+        "label": "Telephone Number",
+        "default": "(888)888-8888"
+      },
+      {
+        "type": "text",
+        "id": "email_address",
+        "label": "Email Address",
+        "default": "example@example.com"
+      },
+      {
+        "type": "textarea",
+        "id": "mobile_des",
+        "label": "Mobile Description"
+      }
+    ]
+  }
+{% endschema %}

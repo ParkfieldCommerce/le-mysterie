@@ -1,0 +1,52 @@
+<section class="customer-service">
+  <h1 class="heading">{{ page.title }}</h1>
+  <div class="container xl">
+    {%- include 'desktop-customer-service' -%}
+    {%- include 'mobile-customer-service' -%}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Customer Service",
+    "max_blocks": 99,
+    "blocks": [
+      {
+        "name": "Service Block",
+        "type": "service_block",
+        "settings": [
+          {
+            "type": "select",
+            "id": "category",
+            "label": "Category",
+            "info": "Pick a Category and shopify will do the rest",
+            "options": [
+              { "value": "contact_us", "label": "Contact Us" },
+              { "value": "my_account", "label": "My Account" },
+              { "value": "shipping_&_returns/exchanges", "label": "Shipping & Returns/Exchanges" },
+              { "value": "returns_&_exchanges", "label": "Returns & Exchanges" },
+              { "value": "track/review_or_cancel_order", "label": "Track/Review or Cancel Order" },
+              { "value": "e-gift_certificates_&_special_promotions", "label": "e-gift Certificates & Special Promotions" },
+              { "value": "payment_options_&_charges", "label": "Payment Options & Charges" },
+              { "value": "how_to_determine_my_size", "label": "How to Determine My Size" },
+              { "value": "affiliates", "label": "Affiliates" },
+              { "value": "retail_locations", "label": "Retail Locations" },
+              { "value": "le_mystere_care_tips", "label": "Le Mystere Care Tips" },
+              { "value": "le_mystere_policies", "label": "Le Mystere Policies" }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "question",
+            "label": "Question"
+          },
+          {
+            "type": "textarea",
+            "id": "pane",
+            "label": "Info Pane"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

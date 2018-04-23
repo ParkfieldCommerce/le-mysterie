@@ -1,0 +1,33 @@
+<li class="tab-panel">
+
+</li>
+
+{% schema %}
+  {
+    "name": "Before and After",
+    "max_blocks": 30,
+    "blocks": [
+      {
+        "type": "before-after-block",
+        "name": "Before n After Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "img_feat",
+            "label": "Before and after Image"
+          },
+          {
+            "type": "text",
+            "id": "before",
+            "label": "Before Text"
+          },
+          {
+            "type": "textarea",
+            "id": "after",
+            "label": "After Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

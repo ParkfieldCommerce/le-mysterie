@@ -1,0 +1,62 @@
+{% assign main_title = section.settings.main_title %}
+<section class="privacy-page">
+  <div class="container xl">
+    <h1 class="s-hide">{{ main_title }}</h1>
+    <h1 class="m-hide l-hide">Privacy</h1>
+    <div class="tabs">
+      <ul class="tab-navigation">
+        {%- for block in section.blocks -%}
+          {% assign privacy_lead = block.settings.privacy_lead %}
+          <li class="tab-item {% if forloop.first %}active{% endif %}" data-tabitem="{{ privacy_lead }}">{{ privacy_lead }}</li>
+        {%- endfor -%}
+      </ul>
+      <ul class="tab-panels">
+        <p>{{ page.content }}</p>
+        {%- for block in section.blocks -%}
+          {% assign privacy_lead = block.settings.privacy_lead %}
+          {% assign privacy_body = block.settings.privacy_body %}
+          <li class="tab-panel {% if forloop.first %}active{%- endif -%}" data-tabpanel="{{ privacy_lead }}">
+            <h3 class="block"><i class="fa fa-plus"></i> {{ privacy_lead }}</h3>
+            <p class="pane">{{ privacy_body }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+
+{% schema %}
+  {
+    "name": "Privacy Policy",
+    "max_blocks": 40,
+    "settings": [
+      {
+        "type": "text",
+        "id": "main_title",
+        "label": "Title",
+        "default": "Your Privacy at Le Mystère"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "privacy-block",
+        "name": "Privacy Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "privacy_lead",
+            "label": "Lead"
+          },
+          {
+            "type": "textarea",
+            "id": "privacy_body",
+            "label": "Body"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

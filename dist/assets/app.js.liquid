@@ -881,6 +881,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Collection Page Functions
   var collectionPg = document.querySelectorAll('.collection-pg');
   if (collectionPg.length > 0) {
+    console.log(collectionPg);
 
     var filterBlock = document.querySelectorAll('.filter-block');
     for (var i = 0; i < filterBlock.length; i++) {
@@ -916,6 +917,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Gift Certificate Page
   var giftCertificate = document.querySelectorAll('.gift-certificate');
   if (giftCertificate.length > 0){
+    console.log(giftCertificate);
     var addGiftToCart = document.querySelector('#giftAdd');
     addGiftToCart.addEventListener('click', function(e) {
       // Amount
@@ -977,6 +979,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Schedule a Fitting Page
   var schedFittingPg = document.querySelectorAll('.schedule-a-fitting');
   if (schedFittingPg.length > 0) {
+    console.log(schedFittingPg);
     // Triggers/Buttons
     var telTrigger = document.querySelector('.btn[data-trigger="tel"]');
     var inStoreTrigger = document.querySelector('.btn[data-trigger="in-store"]');
@@ -1020,4 +1023,189 @@ document.addEventListener("DOMContentLoaded", function() {
       inStoreDiv.velocity(close, duration);
     });
   }
+
+  // Contact Us
+  var contactPg = document.querySelectorAll('.contact-us-page');
+  if (contactPg.length > 0) {
+    console.log(contactPg);
+    var phoneBtn = document.querySelector('.call');
+    var phonePopup = document.querySelector('.phone-popup');
+    var closeBtn = document.querySelector('.btn-close');
+    var emailBtn = document.querySelector('.email');
+    var emailForm = document.querySelector('.email-form');
+    var dropdown = { height: '700px' };
+    var slideUp = { height: 0 };
+    var showOpts = { visibility: 'visible', opacity: 1 };
+    var hideOpts = { opacity: 0, visibility: 'hidden' };
+    var duration = { duration: 700 };
+
+    phoneBtn.addEventListener('click', function() {
+      phonePopup.velocity(showOpts, duration);
+    });
+
+    closeBtn.addEventListener('click', function() {
+      phonePopup.velocity(hideOpts, duration);
+    });
+
+    emailBtn.addEventListener('click', function() {
+      var isOpen = emailForm.classList.contains('js-open');
+      if (isOpen === true) {
+        emailForm.classList.remove('js-open');
+        emailForm.velocity(slideUp, duration);
+      } else {
+        emailForm.classList.add('js-open');
+        emailForm.velocity(dropdown, duration);
+      }
+    });
+  }
+
+  // Customer Service
+  var customerServicePg = document.querySelectorAll('.customer-service');
+  if (customerServicePg.length > 0) {
+    console.log(customerServicePg);
+    // Desktop Functions
+    var tabItem = document.querySelectorAll('.tab-item');
+    for (var i = 0; i < tabItem.length; i++) {
+      tabItem[i].addEventListener('click', function(e) {
+        var target = e.target.closest('li');
+        var tabItemIndex = Array.prototype.slice.call(target.parentNode.children).indexOf(target);
+        var activeTabItem = document.querySelector('.tab-item.active');
+        var activeTabPanel = document.querySelector('.tab-panel.active');
+        var findRightPanel = document.querySelectorAll('.tab-panel')[tabItemIndex];
+
+        activeTabItem.classList.remove('active');
+        target.classList.add('active');
+        activeTabPanel.classList.remove('active');
+        findRightPanel.classList.add('active');
+      });
+    }
+    var question = document.querySelectorAll('.question');
+    for (var i = 0; i < question.length; i++) {
+      question[i].addEventListener('click', function(e) {
+        var target = e.target.closest('h3');
+        var iEl = target.childNodes[0];
+        var pane = target.nextElementSibling;
+        if (iEl.classList.contains('fa-plus')) {
+          iEl.classList.remove('fa-plus');
+          iEl.classList.add('fa-minus');
+        } else {
+          iEl.classList.add('fa-plus');
+          iEl.classList.remove('fa-minus');
+        }
+        var isActive = pane.classList.contains('active');
+        if (isActive === false) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+    }
+
+    // Mobile Functions
+    var mbAccordion = document.querySelectorAll('.accordion');
+    for (var i = 0; i < mbAccordion.length; i++) {
+      mbAccordion[i].addEventListener('click', function(e) {
+        var target = e.target.closest('h3');
+        var icon = target.childNodes[0];
+        var isPlus = icon.classList.contains('fa-plus');
+
+        if (isPlus === true) {
+          icon.classList.remove('fa-plus');
+          icon.classList.add('fa-minus');
+        } else {
+          icon.classList.add('fa-plus');
+          icon.classList.remove('fa-minus');
+        }
+
+        var mbPane = target.nextElementSibling;
+        var isMbPaneActive = mbPane.classList.contains('active');
+        if (isMbPaneActive === false) {
+          mbPane.classList.add('active');
+        } else {
+          mbPane.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  // Privacy Page
+  var privacyPg = document.querySelectorAll('.privacy-page');
+  if (privacyPg.length > 0) {
+    var tabItems = document.querySelectorAll('.tab-item');
+    var tabPanels = document.querySelectorAll('.tab-panel');
+    for (var i = 0; i < tabItems.length; i++) {
+      tabItems[i].addEventListener('click', function(e) {
+        var target = e.target.closest('li');
+        var targetData = target.getAttribute('data-tabitem');
+        var activeTabItem = document.querySelector('.tab-item.active');
+        var activeTabPanel = document.querySelector('.tab-panel.active');
+        var findRightPanel = document.querySelector('.tab-panel[data-tabpanel="'+targetData+'"]');
+
+        activeTabItem.classList.remove('active');
+        target.classList.add('active');
+        activeTabPanel.classList.remove('active');
+        findRightPanel.classList.add('active');
+
+        var panelBlock = findRightPanel.childNodes[1];
+        var iElem = panelBlock.childNodes[0];
+        var isPlus = iElem.classList.contains('fa-plus');
+        var panelPane = findRightPanel.childNodes[3];
+        var isPaneActive = panelPane.classList.contains('active');
+
+        if (isPlus === true) {
+          iElem.classList.remove('fa-plus');
+          iElem.classList.add('fa-minus');
+        } else {
+          iElem.classList.add('fa-plus');
+          iElem.classList.remove('fa-minus');
+        }
+
+        if (isPaneActive === false) {
+          panelPane.classList.add('active');
+          panelPane.velocity({ visibility: 'visible', opacity: 1 }, { duration: 700 });
+        } else {
+          panelPane.classList.remove('active');
+          panelPane.velocity({ visibility: 'hidden', opacity: 0 }, { duration: 700 });
+        }
+      });
+    }
+    for (var i = 0; i < tabPanels.length; i++) {
+      tabPanels[i].addEventListener('click', function(e) {
+        var target = e.target.closest('h3');
+        var targetData = target.parentNode.getAttribute('data-tabpanel');
+        var activeTabItem = document.querySelector('.tab-item.active');
+        var activeTabPanel = document.querySelector('.tab-panel.active');
+        var findRightTabItem = document.querySelector('.tab-item[data-tabitem="'+ targetData +'"]');
+
+        activeTabItem.classList.remove('active');
+        activeTabPanel.classList.remove('active');
+        target.parentNode.classList.add('active');
+        findRightTabItem.classList.add('active');
+
+        var panelBlock = target;
+        var iElem = panelBlock.childNodes[0];
+        var isPlus = iElem.classList.contains('fa-plus');
+        var pane = panelBlock.nextElementSibling;
+        var isPaneActive = pane.classList.contains('active');
+
+        if (isPlus === true) {
+          iElem.classList.remove('fa-plus');
+          iElem.classList.add('fa-minus');
+        } else {
+          iElem.classList.add('fa-plus');
+          iElem.classList.remove('fa-minus');
+        }
+
+        if (isPaneActive === false) {
+          pane.classList.add('active');
+          pane.velocity({ visibility: 'visible', opacity: 1 }, { duration: 700 });
+        } else {
+          pane.classList.remove('active');
+          pane.velocity({ visibility: 'hidden', opacity: 0 }, { duration: 700 });
+        }
+      });
+    }
+  }
+
+  
 });

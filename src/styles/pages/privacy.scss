@@ -1,0 +1,101 @@
+.privacy-page {
+  h1 {
+    padding: 1em 0 0.5em;
+    @include brandon-medium(60px);
+    text-align: center;
+    @include m() {
+      font-size: 50px;
+      padding: 0.5em 0;
+    }
+    @include s() {
+      font-size: 40px;
+      padding: 0.2em 0;
+    }
+  }
+  .tabs {
+    @include flex();
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    list-style: none;
+    margin: 0;
+  }
+  .tab-navigation {
+    width: 25%;
+    @include m() {
+      display: none;
+    }
+    @include s() {
+      display: none;
+    }
+    .tab-item {
+      cursor: pointer;
+      @include brandon-medium(20px);
+      padding: 1em;
+      text-transform: uppercase;
+      color: #8a8a8a;
+      &:first-child {
+        padding-top: 0.3em;
+      }
+      &.active {
+        color: #000;
+      }
+      &:hover {
+        color: #000;
+        @include transition();
+      }
+    }
+  }
+  .tab-panels {
+    width: 75%;
+    padding-bottom: 7em;
+    @include m() {
+      width: 100%;
+    }
+    @include s() {
+      width: 100%;
+    }
+    p {
+      color: #8a8a8a;
+      @include brandon-regular(18px);
+      @include s() {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    .tab-panel {
+      cursor: pointer;
+      .block {
+        @include brandon-medium(24px);
+        color: #8a8a8a;
+        @include s() {
+          font-size: 18px;
+        }
+        i {
+          margin-right: 10px;
+        }
+      }
+      .pane {
+        overflow-x: hidden;
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+        margin: 0 0 10px;
+        @include s() {
+          margin-left: 25px;
+        }
+        &.active {
+          min-height: 270px;
+        }
+      }
+      &.active,
+      &:hover {
+        .block {
+          @include transition();
+          color: #000;
+        }
+      }
+    }
+  }
+}

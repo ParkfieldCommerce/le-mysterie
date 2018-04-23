@@ -1,0 +1,241 @@
+.contact-us-page {
+  background: #fff;
+  .banner-contact {
+    height: 400px;
+    background-size: cover;
+    background-position: 50% 50%;
+    @include flex();
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    @include m() {
+      height: 300px;
+    }
+    @include s() {
+      height: 300px;
+    }
+  }
+
+  .container {
+    position: relative;
+  }
+
+  h1 {
+    text-align: center;
+    color: #fff;
+    @include brandon-medium(80px);
+    @include m() {
+      font-size: 60px;
+    }
+    @include s() {
+      font-size: 40px;
+    }
+  }
+  .heading {
+    text-align: center;
+    margin: 3em 0 0;
+    padding-bottom: 1em;
+    @include brandon-medium(28px);
+    text-transform: uppercase;
+    @include m() {
+      margin: 2em 0 0;
+      font-size: 24px;
+    }
+    @include s() {
+      margin: 1em 0 0;
+      font-size: 20px;
+    }
+  }
+
+  .lead {
+    @include brandon-regular(16px);
+    padding: 30px 0;
+    width: 95%;
+    margin: auto;
+  }
+
+  .btn-container {
+    padding: 0 0 6em;
+    @include flex();
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    @include s() {
+      padding-bottom: 3em;
+    }
+  }
+
+  .call,
+  .email {
+    background: rgba(238, 238, 238, 1);
+    text-align: center;
+    padding: 20px 0;
+    margin: 0 10px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    color: #000;
+    text-decoration: none;
+    @include brandon-medium(18px);
+    text-transform: uppercase;
+  }
+
+  .call-icon,
+  .email-icon {
+    margin-bottom: 5px;
+  }
+
+  .phone-popup {
+    opacity: 0;
+    visibility: hidden;
+    background: #fff;
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 5%;
+    height: auto;
+    border: 1px solid #000;
+    h1 {
+      color: #000;
+      font-size: 30px;
+      padding: 20px 0 10px;
+      margin: 0;
+      @include s() {
+        font-size: 25px;
+        padding-top: 30px;
+      }
+    }
+    p {
+      width: 50%;
+      margin: auto;
+      text-align: center;
+      @include brandon-light(24px);
+      padding-bottom: 20px;
+      @include s() {
+        width: 95%;
+        font-size: 20px;
+      }
+    }
+    .btn-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      margin: 5px 10px;
+      z-index: 5;
+      &:before,
+      &:after {
+        position: absolute;
+        content: '';
+        left: 20%;
+        top: 19px;
+        width: 70%;
+        border-bottom: 1px solid #000;
+      }
+      &:before {
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+      }
+      &:after {
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .email-form {
+    overflow-x: hidden;
+    height: 0;
+    @include s() {
+      height: 700px;
+    }
+    form#contact_form {
+      width: 97%;
+      margin: auto;
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+    }
+
+    .input-container {
+      width: 100%;
+      position: relative;
+      margin-bottom: 10px;
+      &:after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+        border-bottom: 1px solid #e5e5e5;
+        width: 0;
+      }
+      &:focus-within {
+        &:after {
+          width: 100%;
+          @include transition();
+        }
+      }
+      input,
+      textarea {
+        width: 98%;
+        display: block;
+        margin: auto;
+        border: 0;
+        border-bottom: 1px solid #000;
+        background: #fff;
+        @include inputPlaceholder(#000);
+        color: #000;
+        height: auto;
+        padding: 15px 0 7px 10px;
+        @include brandon-regular(25px);
+        @include s() {
+          font-size: 20px;
+        }
+      }
+      textarea {
+        resize: none;
+        height: 170px;
+      }
+      &.double {
+        width: 50%;
+        @include s() {
+          width: 100%;
+        }
+        input {
+          width: 97%;
+        }
+      }
+    } //input-container
+    button.btn {
+      display: block;
+      background: #000;
+      color: #fff;
+      height: auto;
+      border: 0;
+      @include brandon-medium(20px);
+      text-align: center;
+      width: 98%;
+      padding: 10px 0;
+      text-transform: uppercase;
+      margin: 30px 0;
+    }
+  }
+}

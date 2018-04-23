@@ -1,0 +1,137 @@
+.customer-service {
+  background: #fff;
+  .heading {
+    padding: 1em 0;
+    @include brandon-medium(60px);
+    text-align: center;
+    @include m() {
+      font-size: 50px;
+      padding: 0.5em 0;
+    }
+    @include s() {
+      font-size: 30px;
+      margin: 0;
+      padding: 0.5em 0;
+    }
+  }
+  .tabs-dk {
+    padding-bottom: 3em;
+    @include flex();
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    @include s() {
+      display: none;
+    }
+    .tab-navigation {
+      width: 30%;
+      @include flex();
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: column;
+              flex-flow: column;
+      list-style: none;
+      margin-left: 0;
+    }
+    .tab-item {
+      cursor: pointer;
+      margin: 0;
+      padding: 1em;
+      a {
+        @include brandon-medium(18px);
+        color: #eeeeee;
+        text-transform: uppercase;
+      }
+      &:hover {
+        a {
+          color: #000;
+          @include transition();
+        }
+      }
+      &.active {
+        a {
+          color: #000;
+        }
+      }
+    } //.tab-item
+
+    .tab-panels {
+      margin-left: 0;
+    }
+
+    .tab-panel {
+      display: none;
+      visibility: hidden;
+      opacity: 0;
+      h2 {
+        @include brandon-medium(26px);
+        text-transform: uppercase;
+      }
+      .question {
+        @include brandon-regular(22px);
+        cursor: pointer;
+        i {
+          margin-right: 20px;
+        }
+      }
+      .pane {
+        @include brandon-light(18px);
+        color: #7d7d7d;
+        overflow-x: hidden;
+        height: 0;
+        visibility: hidden;
+        opacity: 0;
+        &.active {
+          @include transition();
+          min-height: 100px;
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+      &.active {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        @include transition();
+      }
+    }
+  } //.tabs-dk
+  .mb-list {
+    @include l() {
+      display: none;
+    }
+    @include m() {
+      display: none;
+    }
+    h2 {
+      @include brandon-medium(18px);
+      text-transform: uppercase;
+    }
+
+    .block {
+      @include brandon-regular(16px);
+      padding-bottom: 20px;
+      margin: 0;
+      i {
+        margin-right: 10px;
+      }
+    }
+    .mb-pane {
+      @include brandon-regular(16px);
+      margin: 0;
+      color: #7d7d7d;
+      overflow-x: hidden;
+      height: 0;
+      visibility: hidden;
+      opacity: 0;
+      margin-left: 23px;
+      &.active {
+        @include transition();
+        min-height: 100px;
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}
