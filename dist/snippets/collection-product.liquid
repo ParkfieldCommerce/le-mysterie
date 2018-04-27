@@ -45,7 +45,23 @@
     {% endif %}
   </p>
   <div class="swatches">
-    
+    <ul>
+      {%- for tag in product.tags -%}
+        {%- if tag contains 'color' -%}
+          <li><a class="color-filter active {{tag | split: '_' | last | handleize}}" data-tag="{{ product.handle }}"></a></li>
+        {%- endif -%}
+        {%- if tag contains 'related' -%}
+          {% assign productTag = tag | split: '_' | last %}
+          {% assign relatedProduct = all_products[productTag] %}
+          {%- for handleColors in all_products[productTag].tags -%}
+            {%- if handleColors contains 'color' -%}
+              {% assign colorSwatch = handleColors | split: '_' | last %}
+              <li><a class="color-filter {{colorSwatch | handleize}}" data-tag="{{productTag}}"></a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
   </div>
   {% comment %}
   <p>

@@ -6,21 +6,22 @@
 
     {{ form.errors | default_errors }}
 
-    <label for="FirstName">{{ 'account.customer.first_name' | t }}</label>
-    <input type="text" name="customer[first_name]" id="FirstName"{% if form.first_name %} value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+    <div class="input-wrapper">
+      <input type="text" placeholder="{{ 'account.customer.first_name' | t }}" name="customer[first_name]" id="FirstName"{% if form.first_name %} value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+    </div>
+    <div class="input-wrapper">
+      <input type="text" placeholder="{{ 'account.customer.last_name' | t }}" name="customer[last_name]" id="LastName"{% if form.last_name %} value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+    </div>
+    <div class="input-wrapper">
+      <input type="email" placeholder="{{ 'form.email' | t }}" name="customer[email]" id="Email"{% if form.errors contains 'email' %} class="error"{% endif %}{% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="input-wrapper">
+      <input type="password" placeholder="{{ 'form.password' | t }}" name="customer[password]" id="CreatePassword"{% if form.errors contains 'password' %} class="error"{% endif %}>
+    </div>
 
-    <label for="LastName">{{ 'account.customer.last_name' | t }}</label>
-    <input type="text" name="customer[last_name]" id="LastName"{% if form.last_name %} value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+    <button type="submit" class="btn primary-btn">{{ 'account.register.submit' | t }}</button>
 
-    <label for="Email">{{ 'form.email' | t }}</label>
-    <input type="email" name="customer[email]" id="Email"{% if form.errors contains 'email' %} class="error"{% endif %}{% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
-
-    <label for="CreatePassword">{{ 'form.password' | t }}</label>
-    <input type="password" name="customer[password]" id="CreatePassword"{% if form.errors contains 'password' %} class="error"{% endif %}>
-
-    <button type="submit" class="wide">{{ 'account.register.submit' | t }}</button>
-
-    <p>{{ 'account.register.already_registered' | t }} {{ 'account.login.title' | t | customer_login_link }}</p>
+    <p class="register">{{ 'account.register.already_registered' | t }} {{ 'account.login.title' | t | customer_login_link }}</p>
 
   {% endform %}
 

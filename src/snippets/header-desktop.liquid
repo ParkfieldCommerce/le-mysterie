@@ -20,7 +20,7 @@
         {% endif %}
     </div>
     <div class="cart">
-      <a href="/cart">
+      <a id="js-cart">
         {%- if cart.item_count > 0 -%}
           <span data-cart-item-count>{{ cart.item_count }}</span>
         {%- endif -%}

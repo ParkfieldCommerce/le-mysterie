@@ -1,7 +1,41 @@
-<li class="tab-panel">
-
+<li class="tab-panel active" data-mobile-target="before-n-after">
+  <div class="before-after-container">
+    <div class="swiper-container gallery-top">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide">
+            <div class="img-container">
+              <img src="{{ block.settings.img_feat | img_url:'master' }})" alt="{{ block.settings.img_feat }})">
+            </div>
+            <div class="info">
+              <p><strong>Before:</strong> {{ block.settings.before }}</p>
+              <p><strong>After:</strong> {{ block.settings.after }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next swiper-button-black"></div>
+      <div class="swiper-button-prev swiper-button-black"></div>
+    </div>
+    <div class="swiper-container gallery-thumbs">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide">
+            <div class="img-container">
+              <img src="{{ block.settings.img_feat | img_url:'master' }}" alt="{{ block.settings.img_feat }}">
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next swiper-button-black"></div>
+      <div class="swiper-button-prev swiper-button-black"></div>
+    </div>
+  </div>
 </li>
-
 {% schema %}
   {
     "name": "Before and After",

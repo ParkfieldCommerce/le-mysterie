@@ -4,16 +4,22 @@
       {%- include 'fit-guide-mobile-select' -%}
       {% section 'page-fit-guide-measure-me' %}
     {% endcomment %}
-    <h1>{{ page.title }}</h1>
-    <p class="js-nav"></p>
+    <h1 class="heading">{{ page.title }}</h1>
+    <p class="lead s-hide" id="js-nav"></p>
     <div class="tabs">
-      <ul class="tab-navigation">
-        <li class="tab-item active">Fit Tips</li>
-        <li class="tab-item">Before & After</li>
+      <ul class="tab-navigation s-hide">
+        <li class="tab-item" data-active-nav="Fit Tips"><a>Fit Tips</a></li>
+        <li class="tab-item active" data-active-nav="Before & After"><a>Before & After</a></li>
       </ul>
+      <div class="mobile-navigation m-hide l-hide">
+        <select>
+          <option value="fit-tips">Fit Tips</option>
+          <option value="before-n-after" selected>Before & After</option>
+        </select>
+      </div>
       <ul class="tab-panels">
-        {% section 'page-fit-guide-before-n-after' %}
         {% section 'page-fit-guide-fit-tips' %}
+        {% section 'page-fit-guide-before-n-after' %}
       </ul>
     </div>
   </div>

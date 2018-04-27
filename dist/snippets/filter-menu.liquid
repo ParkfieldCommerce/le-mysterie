@@ -1,0 +1,68 @@
+{%- if template contains 'collection' and collection.all_tags.size > 0 -%}
+  <div class="filter-menu-container">
+    <div class="desktop-filter">
+      <ul class="title-filter">
+        <li class="items-width">
+          {%- include 'collection-sort' -%}
+        </li>
+        {%- for cat in categories -%}
+          {%- unless cat contains 'complete' -%}
+            {% assign category = cat | handleize %}
+            {% assign label = cat | replace: '-',' ' | split: ' ' %}
+            {% capture labelCap %}
+              {% for word in label %}
+                {{ word | capitalize }}
+              {% endfor %}
+            {% endcapture %}
+            <li class="items-width">
+              <span class="filter-cat-heading">{{labelCap}}{%include 'icon' with 'chevron-down'%}</span>
+              <ul>
+                {%- for tag in collection.all_tags -%}
+                  {%- if tag contains '_' -%}
+                    {% assign tagCat = tag | split: '_' | first | handleize %}
+                    {% assign tagVal = tag | split: '_' | last %}
+
+                    {% if tagVal contains '(0)'%}
+                      {% assign tagVal = tagVal | replace_first: '(0)', '' %}
+                    {% endif %}
+                    {% if tagVal contains '(d)'%}
+                      {% assign tagVal = tagVal | replace_first: '(d)', '0' %}
+                    {% endif %}
+                    {% if tagVal contains '(h)' %}
+                      {% assign tagVal = tagVal | replace_first: '(h)', '00' %}
+                    {% endif %}
+                    {% if tagVal contains '(k)' %}
+                      {% assign tagVal = tagVal | replace_first: '(k)', '000' %}
+                    {% endif %}
+
+                    {% if tagCat == category %}
+                      <li class="filter-value">
+                        {%- if tagCat == 'color' -%}
+                          <label>
+                            <input class="checked checked-color" type="checkbox" data-group="{{category}}" value ='{{tag | handleize}}'>
+                            <span class="color-filter {{tagVal | handleize }}"></span>
+                          </label>
+                        {% elsif tagCat == 'price' %}
+                          <label>
+                            <input class="checked" type="checkbox" data-group="{{category}}" value ='{{tag | handleize}}'>
+                            <span>${{tagVal}}</span>
+                          </label>
+                        {%- else -%}
+                          <label>
+                            <input class="checked" type="checkbox" data-group="{{category}}" value ='{{tag | handleize}}'>
+                            <span>{{tagVal}}</span>
+                          </label>
+                        {%- endif -%}
+
+                      </li>
+                    {% endif %}
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </li>
+          {%- endunless -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}

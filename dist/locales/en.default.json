@@ -75,12 +75,12 @@
       }
     },
     "login": {
-      "title": "Login",
-      "message": "Sign in to your existing account",
+      "title": "Sign In",
+      "message": "Get easy access to your order status, access your previous orders or edit your account details",
       "no_account": "No account?",
-      "register": "Register now",
+      "register": "Create an Account",
       "forgot": "Forgot password?",
-      "recover": "Recover your account",
+      "recover": "Forgot Password?",
       "submit": "Sign in",
       "guest": "Login as guest"
     },

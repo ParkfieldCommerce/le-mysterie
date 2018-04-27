@@ -37,6 +37,7 @@ MIT License
   <!-- Swiper CSS fallback  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.2/css/swiper.min.css">
   {{ 'app.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'colors.scss.css' | asset_url | stylesheet_tag }}
 
   <!-- JavaScript =========================================================== -->
   {% if shop.customer_accounts_enabled and template contains 'customers' %}

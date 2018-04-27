@@ -57,6 +57,24 @@ document.addEventListener("DOMContentLoaded", function() {
       return null;
     }
   }
+
+  // Has Class Function
+  function hasClass(el, cls) {
+    return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
+  }
+
+  // Get AJAX
+  function getAjax(url, success) {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.open('GET', url);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState>3 && xhr.status==200) success(xhr.responseText);
+    };
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.send();
+    return xhr;
+  }
+
   // Search function
   var headerSearch = document.querySelectorAll('.js-search');
   for (var i = 0; i < headerSearch.length; i++) {
@@ -220,34 +238,122 @@ document.addEventListener("DOMContentLoaded", function() {
   // Collection Page Functions
   var collectionPg = document.querySelectorAll('.collection-pg');
   if (collectionPg.length > 0) {
-    console.log(collectionPg);
+    // Consider revising to remove error messages
+    var itemsWidth = document.querySelectorAll('.items-width');
+    for (var i = 0; i < itemsWidth.length; i++) {
+      itemsWidth[i].addEventListener('click', function(e) {
+        var target = e.target.closest('span');
 
-    var filterBlock = document.querySelectorAll('.filter-block');
-    for (var i = 0; i < filterBlock.length; i++) {
-      filterBlock[i].addEventListener('click', function(e) {
+        // Icon Functions
+        var icon = target.children[0];
+        var iElem = icon.children[0];
+        var isIconDown = iElem.classList.contains('fa-chevron-down');
+        var allIcons = document.querySelectorAll('.filter-cat-heading i');
+        var isNavDown = target.nextElementSibling.classList.contains('js-nav-open');
+
+        function fixIcons() {
+          for (var i = 0; i < allIcons.length; i++) {
+            if (allIcons[i].classList.contains('fa-chevron-up')) {
+              allIcons[i].classList.remove('fa-chevron-up');
+              allIcons[i].classList.add('fa-chevron-down');
+            }
+          }
+        }
+        if (isNavDown === false) {
+          if (isIconDown === true) {
+            fixIcons();
+            iElem.classList.remove('fa-chevron-down');
+            iElem.classList.add('fa-chevron-up');
+          }
+        } else {
+          if (isIconDown === false) {
+            iElem.classList.add('fa-chevron-down');
+            iElem.classList.remove('fa-chevron-up');
+          }
+        }
+
+        function outerHeight(el) {
+          var height = el.offsetHeight;
+          var style = el.currentStyle || getComputedStyle(el);
+
+          height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+          return height;
+        }
+
+        // Show Menu
+        var targetUl = target.nextElementSibling;
+        var isUlOpen = targetUl.classList.contains('js-nav-open');
+        var otherOpenNavs = document.querySelectorAll('ul.js-nav-open');
+        var jsNav = document.querySelector('ul.js-nav-open');
+        var jsNavHeight = outerHeight(targetUl);
+        var openOptions = { height: jsNavHeight, opacity: 1, visibility: 'visible' };
+        var closeOptions = { height: 'auto', opacity: 0, visibility: 'hidden' };
+        var duration = { duration: 500 };
+        if (isUlOpen === false) {
+          targetUl.classList.add('js-nav-open');
+          targetUl.velocity(openOptions, duration);
+          if (otherOpenNavs.length == 1) {
+            jsNav.classList.remove('js-nav-open');
+            jsNav.velocity(closeOptions, duration);
+          }
+        } else {
+          targetUl.classList.remove('js-nav-open');
+          targetUl.velocity(closeOptions, duration);
+        }
+      });
+    }
+    // URL Changes
+    var checkboxes = document.querySelectorAll('.checked');
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].addEventListener('click', function(e) {
+        var target = e.target;
+        var targetData = target.value;
+        var url = window.location.href;
+        function aContainsB (a, b) {
+          return a.indexOf(b) >= 0;
+        }
+        function aMissingB (a, b) {
+          return a.indexOf(b) == -1;
+        }
+        if (url.endsWith('/')) {
+          url += targetData;
+          window.location.href = url;
+        } else if (url.endsWith('') && aMissingB(url, 'band-size') && aMissingB(url, 'color') && aMissingB(url, 'cup-size') && aMissingB(url, 'price')) {
+          url += '/'+targetData;
+          window.location.href = url;
+        } else if (aContainsB(url, 'band-size') || aContainsB(url, 'color') || aContainsB(url, 'cup-size') || aContainsB(url, 'price')) {
+          url += '+'+targetData;
+          window.location.href = url;
+        }
+      });
+    }
+
+    // Collection Swatches
+    var swatches = document.querySelectorAll('.swatches ul');
+    for (var i = 0; i < swatches.length; i++) {
+      swatches[i].addEventListener('click', function(e) {
         var target = e.target;
         if (target.tagName === 'A') {
-          var dataTrigger = target.getAttribute('data-trigger');
-          var icon = target.querySelector('i');
-          var isOpen = target.classList.contains('js-open');
-          var filterSlide = document.querySelectorAll('.js-filter-slide[data-trigger="'+dataTrigger+'"]');
+          var targetDiv = target.closest('div');
+          var parent = targetDiv.parentNode;
+          var dataTag = target.getAttribute('data-tag');
+          var isActive = target.classList.contains('active');
+          var allFilters = parent.querySelector('.color-filter.active');
 
-          if (isOpen === true) {
-            target.classList.remove('js-open');
-            icon.classList.remove('fa-chevron-up');
-            icon.classList.add('fa-chevron-down');
-
-            filterSlide.velocity({ height: 0 }, { duration: 500 });
-
-          } else {
-
-            target.classList.add('js-open');
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
-
-            filterSlide.velocity({ height: '50px' }, { duration: 500 });
-
+          if (isActive === false) {
+            allFilters.classList.remove('active');
+            target.classList.add('active');
           }
+
+          getAjax('{{shop.url}}/products/'+dataTag, function(data) {
+            var div = document.createElement('div');
+            div.innerHTML = data;
+            var getPhoto = div.querySelector('#ProductPhoto img');
+            var photoSrc = getPhoto.src;
+            var targetImg = parent.querySelector('.image img');
+            targetImg.setAttribute('srcset', photoSrc);
+            targetImg.src = photoSrc;
+          });
         }
       });
     }
@@ -546,5 +652,110 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  
+  // Fit Guide Page
+  var fitGuidePg = document.querySelectorAll('.fit-guide-page');
+  if (fitGuidePg.length > 0) {
+    var getNav = document.querySelector('.tab-item.active').getAttribute('data-active-nav');
+    document.getElementById('js-nav').innerHTML = getNav;
+
+    var tabItem = document.querySelectorAll('.tab-item');
+    for (var i = 0; i < tabItem.length; i++) {
+
+      tabItem[i].addEventListener('click', function(e) {
+        var target = e.target.closest('li');
+        var targetData = target.getAttribute('data-active-nav');
+        var tabItemIndex = Array.prototype.slice.call(target.parentNode.children).indexOf(target);
+        var activeTabItem = document.querySelector('.tab-item.active');
+        var activeTabPanel = document.querySelector('.tab-panel.active');
+        var findRightPanel = document.querySelectorAll('.tab-panel')[tabItemIndex];
+
+        activeTabItem.classList.remove('active');
+        target.classList.add('active');
+        activeTabPanel.classList.remove('active');
+        findRightPanel.classList.add('active');
+
+        document.getElementById('js-nav').innerHTML = targetData;
+      });
+    }
+
+    var accordion = document.querySelectorAll('.accordion');
+    for (var i = 0; i < accordion.length; i++) {
+      accordion[i].addEventListener('click', function(e) {
+        var target = e.target.closest('h3');
+        var iElem = target.childNodes[0];
+        var pane = target.nextElementSibling;
+        if (iElem.classList.contains('fa-plus')) {
+          iElem.classList.remove('fa-plus');
+          iElem.classList.add('fa-minus');
+        } else {
+          iElem.classList.add('fa-plus');
+          iElem.classList.remove('fa-minus');
+        }
+        var isActive = pane.classList.contains('active');
+        if (isActive === false) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+    }
+
+    var topGalleryDiv = document.querySelector('.gallery-top');
+    var thumbGalleryDiv = document.querySelector('.gallery-thumbs');
+    var topOptions = {
+      spaceBetween: 10,
+      keyboard: true,
+      loop: true,
+      loopedSlides: 5,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'fraction',
+        renderFraction: function(currentClass, totalClass) {
+          return 'Image <span class="' + currentClass + '"></span>' +
+            ' of ' +
+            '<span class="' + totalClass + '"></span>';
+        }
+      },
+    };
+    var thumbOptions = {
+      spaceBetween: 10,
+      slidesPerView: 4,
+      touchRatio: 1,
+      loop: true,
+      loopedSlides: 5,
+      slideToClickedSlide: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        425: {
+          slidesPerView: 2
+        },
+        768: {
+          slidesPerView: 3
+        }
+      }
+    };
+
+    var galleryTop = new Swiper(topGalleryDiv, topOptions);
+    var galleryThumbs = new Swiper(thumbGalleryDiv, thumbOptions);
+    galleryTop.controller.control = galleryThumbs;
+    galleryThumbs.controller.control = galleryTop;
+
+    var mobileSelect = document.querySelector('.mobile-navigation select');
+    mobileSelect.addEventListener('change', function() {
+      var selectVal = mobileSelect.value;
+      var activePanel = document.querySelector('.tab-panel.active');
+      var findRightPanel = document.querySelector('.tab-panel[data-mobile-target="'+selectVal+'"]');
+
+      activePanel.classList.remove('active');
+      findRightPanel.classList.add('active');
+    });
+
+  }
 });

@@ -1,37 +1,63 @@
 <!-- /templates/customers/account.liquid -->
 
 {% assign pagination = 20 %}
-
-<div class="container l">
-  <header>
+<div class="container xl">
+  <div class="acct-crumbs">
     {% include 'theme-breadcrumbs' %}
-    <h1>{{ 'account.orders.title' | t }}</h1>
-  </header>
-
-  <section>
-    {% paginate customer.orders by pagination %}
-      {% if customer.orders.size > 0 %}
-        <div class="row table s-hide">
-          <div class="column l2"><label>{{ 'account.order.title' | t }}</label></div>
-          <div class="column l2"><label>{{ 'account.order.date' | t }}</label></div>
-          <div class="column l5"><label>{{ 'account.order.status' | t }}</label></div>
-          <div class="column l3 l-right"><label>{{ 'cart.total' | t }}</label></div>
-        </div>
-
-        {% for order in customer.orders %}
-          <div class="row l-table m-table">
-            <div class="column l2 s12"><p><b>{{ order.name | link_to: order.customer_url }}</b></p></div>
-            <div class="column l2 s12"><p>{{ order.created_at | date: format: 'simple' }}</p></div>
-            <div class="column l5 s12"><p>{{ order.financial_status_label }} / {{ order.fulfillment_status_label }}</p></div>
-            <div class="column l3 s12 l-right"><p>{{ order.total_price | money }}</p></div>
+  </div>
+  <section class="account-pg">
+    <h3>{{ 'account.orders.title' | t }}</h3>
+    <div class="orders">
+      {% paginate customer.orders by pagination %}
+        {% if customer.orders.size > 0 %}
+          <div class="row table s-hide">
+            <div class="column l2"><label>{{ 'account.order.title' | t }}</label></div>
+            <div class="column l2"><label>{{ 'account.order.date' | t }}</label></div>
+            <div class="column l5"><label>{{ 'account.order.status' | t }}</label></div>
+            <div class="column l3 l-right"><label>{{ 'cart.total' | t }}</label></div>
           </div>
-        {% endfor %}
-      {% else %}
-        <p class="h4">{{ 'account.orders.none' | t }}</p>
-        <a href="/collections/all" class="button">{{ 'account.orders.add' | t }}</a>
-      {% endif %}
 
-      {% include 'theme-pagination' with 'hr' %}
-    {% endpaginate %}
+          {% for order in customer.orders %}
+            <div class="row l-table m-table">
+              <div class="column l2 s12"><p><b>{{ order.name | link_to: order.customer_url }}</b></p></div>
+              <div class="column l2 s12"><p>{{ order.created_at | date: format: 'simple' }}</p></div>
+              <div class="column l5 s12"><p>{{ order.financial_status_label }} / {{ order.fulfillment_status_label }}</p></div>
+              <div class="column l3 s12 l-right"><p>{{ order.total_price | money }}</p></div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <h3>{{ 'account.orders.none' | t }}</h3>
+          <a href="/collections/all" class="btn primary-btn">{{ 'account.orders.add' | t }}</a>
+        {% endif %}
+        {% include 'theme-pagination' with 'hr' %}
+      {% endpaginate %}
+    </div>
+    <div class="account-sidebar">
+    	<h3 class="title">Account Details</h3>
+    	<div class="account-sb-body">
+    		<p>{{ customer.name }}</p>
+        {%- if customer.default_address != blank -%}
+          <p>
+            {{ customer.default_address.street }}
+          </p>
+          <p>
+            {{ customer.default_address.city | capitalize }}
+            {% if customer.default_address.province_code %}
+              {{ customer.default_address.province_code | upcase }},
+            {% endif %}
+          </p>
+          <p>
+            {{ customer.default_address.zip | upcase }},
+            {{ customer.default_address.country }}<br>
+            {{ customer.default_address.phone }}
+          </p>
+        {%- endif -%}
+    		<a href="/account/addresses" title="Manage Addresses">Manage Addresses ({{ customer.addresses_count }})</a>
+    		<br>
+    		<br>
+    		<a href="/account/logout" title="Logout">Logout</a>
+
+    	</div>
+    </div>
   </section>
 </div>

@@ -3,20 +3,21 @@
 {% form 'customer_login' %}
 
   {{ form.errors | default_errors }}
-
-  <label for="CustomerEmail">{{ 'form.email' | t }}</label>
-  <input type="email" name="customer[email]" id="CustomerEmail"{% if form.errors contains 'email' %} class="error"{% endif %} autocorrect="off" autocapitalize="off" autofocus>
+  <div class="input-wrapper">
+    <input type="email" placeholder="{{ 'form.email' | t }}" name="customer[email]" id="CustomerEmail"{% if form.errors contains 'email' %} class="error"{% endif %} autocorrect="off" autocapitalize="off" autofocus>
+  </div>
 
   {% if form.password_needed %}
-    <label for="CustomerPassword">{{ 'form.password' | t }}</label>
-    <input type="password" value="" name="customer[password]" id="CustomerPassword"{% if form.errors contains 'password' %} class="error"{% endif %}>
+    <div class="input-wrapper">
+      <input type="password" placeholder="{{ 'form.password' | t }}" value="" name="customer[password]" id="CustomerPassword"{% if form.errors contains 'password' %} class="error"{% endif %}>
+    </div>
   {% endif %}
 
-  <button type="submit" class="wide">{{ 'account.login.submit' | t }}</button>
+  <button type="submit" class="btn primary-btn">{{ 'account.login.submit' | t }}</button>
 
-  <p>{{ 'account.login.no_account' | t }} {{ 'account.login.register' | t | customer_register_link }}</p>
+  <p class="register">{{ 'account.login.register' | t | customer_register_link }}</p>
   {% if form.password_needed %}
-    <p>{{ 'account.login.forgot' | t }} <a href="/account/login?view=recover">{{ 'account.login.recover' | t }}</a></p>
+    <p class="fgt-pswd"><a href="/account/login?view=recover">{{ 'account.login.recover' | t }}</a></p>
   {% endif %}
 
 {% endform %}

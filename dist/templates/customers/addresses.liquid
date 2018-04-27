@@ -3,10 +3,11 @@
 {% assign pagination = 6 %}
 
 {% paginate customer.addresses by pagination %}
-
   <div class="container l">
-    <header>
-      {% include 'theme-breadcrumbs' %}
+    <header class="acct-header">
+      <div class="acct-crumbs">
+        {% include 'theme-breadcrumbs' %}
+      </div>
 
       {% for address in customer.addresses | limit: 1 %}
         <h1>{{ 'account.address.count' | t: count: address }}</h1>
@@ -14,12 +15,14 @@
         <h1>{{ 'account.address.title' | t }}</h1>
       {% endfor %}
     </header>
+  </div>
+  <div class="container l account-pg">
 
     <section>
       {% if customer.addresses.size > 0 %}
         <div class="row">
           {% for address in customer.addresses %}
-            <div class="column l4 m6 s12">
+            <div class="column l12 m12 s12">
               {% if address == customer.default_address %}
                 <label class="small">{{ 'account.address.default' | t }}</label>
               {% endif %}
@@ -54,11 +57,11 @@
 
         <br>
       {% else %}
-        <p class="h4">{{ 'account.address.none' | t }}</p>
+        <h3>{{ 'account.address.none' | t }}</h3>
       {% endif %}
 
       {% include 'popup-address' %}
-      <a href="#PopupAddress" data-target="#PopupAddress" data-trigger="popup" class="button">{{ 'account.address.add' | t }}</a>
+      <a href="#PopupAddress" data-target="#PopupAddress" data-trigger="popup" class="acct-primary-btn">{{ 'account.address.add' | t }}</a>
     </section>
   </div>
 
