@@ -21,6 +21,7 @@
 
 /* Vendor =====================================================================*/
 @import url('vendor/swiper.css');
+@import url('vendor/magnify.css');
 
 /* Global ====================================================================*/
 @import url('global/concrete-reset.scss');
@@ -38,6 +39,9 @@
 @import url('sections/banner-double-btn.scss');
 @import url('sections/collection-slider.scss');
 @import url('sections/instagram-feed.scss');
+@import url('sections/complete-the-look.scss');
+@import url('sections/related-products.scss');
+
 
 /* Pages ==================================================================*/
 @import url('pages/gift-certificate.scss');

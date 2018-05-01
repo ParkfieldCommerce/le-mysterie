@@ -2,7 +2,7 @@
 
 .collection-pg {
   background: #fff;
-  padding-bottom: 6em;
+  padding-bottom: 3em;
   .heading {
     text-align: center;
     @include brandon-regular(80px);
@@ -123,10 +123,8 @@
       }
     }
     .filter-value {
-      -webkit-box-flex: 1;
-          -ms-flex: 1;
-              flex: 1;
-      margin: 5px;
+      width: auto;
+      margin: 5px 20px;
       label {
         height: 25px;
         margin: 0;

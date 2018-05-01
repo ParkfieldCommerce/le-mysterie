@@ -1,0 +1,83 @@
+
+
+{%for tag in product.tags %}
+{% if tag contains 'complete'%}
+{% assign hasCompleted = true %}
+{%endif %}
+{%endfor%}
+
+{% if hasCompleted %}
+<section class="complete-the-look">
+  <div class="container xl">
+    <h2>Complete The Look</h2>
+    <div class="row" id="test">
+      {%- for tag in product.tags -%}
+        {%- if tag contains 'complete' -%}
+          <div class="column l6 m12 s12 first-half">
+            {% assign completeTag = tag | split: '_' | last %}
+            {% assign product = all_products[completeTag] %}
+            <script class="product-data product-data-{{product.id}}" type="application/json">{{product | json }}</script>
+            <div class="image-container column l4 m4 s12">
+              <img src="{{product.featured_image | img_url: 'master' }}">
+            </div>
+            <div class="column l8 m8 s12 second-half">
+              <div class="title">{{product.title}}</div>
+              <div class="money">{{product.price | money }}</div>
+              <div class="color-wrapper">
+                <div class="color-label">
+                  {%- for tag in product.tags -%}
+                    {%- if tag contains 'color' -%}
+                      <label>Color</label>
+                      <span>{{ tag | split: '_' | last | capitalize }}</span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                <ul class="swatches">
+                  {%- for tag in product.tags -%}
+                    {%- if tag contains 'color' -%}
+                      <li><a class="color-filter active {{tag | split: '_' | last | handleize}}" data-color="{{tag | split: '_' | last | replace: '-', ' ' }}" data-handle="{{ product.handle }}"></a></li>
+                    {%- endif -%}
+                    {%- if tag contains 'related' -%}
+                      {% assign productTag = tag | split: '_' | last %}
+                      {% assign relatedProduct = all_products[productTag] %}
+                      {%- for handleColors in all_products[productTag].tags -%}
+                        {%- if handleColors contains 'color' -%}
+                          {% assign colorSwatch = handleColors | split: '_' | last %}
+                          <li><a class="color-filter {{colorSwatch | handleize}}" data-color="{{colorSwatch | replace: '-', ' ' }}" data-handle="{{ productTag }}"></a></li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              </div>
+              <form class="form-test form-{{forloop.index0}}" data-cart-submit="data-cart-submit">
+                {% for option in product.options_with_values %}
+                <div class="select-option-wrapper complete-look-option-{{forloop.index}}">
+                  <div class="first-title">{{option.name | replace: '-', ' ' | capitalize}}</div>
+                  <div class="option-values-wrapper">
+                    {% for value in option.values %}
+                      <div class="option-selects {% if forloop.first %}active{% endif %}" value="{{value}}">{{value}}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endfor %}
+
+                <div class="quantity-and-button">
+                  <div class="quantity-container quantity-complete">
+                    <label for="Quantity">Quantity</label>
+                    <div class="quantity-adjust">
+                      <input type="number" class="quantity" name="quantity" value="1" min="1" data-cart-quantity="1" >
+                    </div>
+                  </div>
+                  <button class="btn primary-btn ctl-submit" type="submit" data-handle="{{product.handle}}" data-product-id="{{product.id}}">Add to Cart</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%endif%}

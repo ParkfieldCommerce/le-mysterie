@@ -1,0 +1,166 @@
+.complete-the-look{
+  h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    @include brandon-medium(3.125rem);
+  }
+  .first-half {
+    .form-test {
+      width: 100%;
+    }
+    .title {
+      @include brandon-regular(1.375rem);
+      margin-bottom:15px;
+    }
+    .money{
+      @include brandon-regular(1rem);
+      margin-bottom: 20px;
+    }
+    .color-wrapper {
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: start;
+          -ms-flex-align: start;
+              align-items: flex-start;
+    }
+    .color-wrapper .color-label {
+      width: 40%;
+      label {
+        @include brandon-regular(1rem);
+        margin: 0;
+        text-transform: uppercase;
+      }
+      span {
+        color: #8a8a8a;
+        @include brandon-regular(1rem);
+        text-transform: capitalize;
+      }
+    }
+    .swatches {
+      width: 60%;
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: start;
+          -ms-flex-pack: start;
+              justify-content: flex-start;
+      li {
+        width: auto;
+        margin: 5px 10px;
+      }
+      .color-filter {
+        width: 37px;
+        height: 37px;
+        position: relative;
+        &.active {
+          &:before {
+            position: absolute;
+            content: '';
+            border: 1px solid #000;
+            border-radius: 50%;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+          }
+        }
+      }
+    } //.Swatches
+
+    .select-option-wrapper {
+      width: 100%;
+      @include flex();
+      margin: 20px 0;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: start;
+          -ms-flex-pack: start;
+              justify-content: flex-start;
+      .first-title {
+        width: 40%;
+        @include brandon-regular(1rem);
+        text-transform: uppercase;
+      }
+      .option-values-wrapper {
+        width: 60%;
+        @include flex();
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap;
+        -webkit-box-align: start;
+            -ms-flex-align: start;
+                align-items: flex-start;
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        .option-selects {
+          @include brandon-regular(24px);
+          text-transform: uppercase;
+          width: auto;
+          margin: 5px 10px;
+          color: #8a8a8a;
+          cursor: pointer;
+          &.active {
+            color: #000;
+            border-bottom: 1px solid #000;
+          }
+        }
+      }
+    } //.select-option-wrapper
+    .quantity-container {
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: start;
+          -ms-flex-pack: start;
+              justify-content: flex-start;
+      label {
+        width: 40%;
+        margin: 0;
+        @include brandon-regular(1rem);
+        text-transform: uppercase;
+      }
+      .quantity-adjust {
+        position: relative;
+        width: 30%;
+        margin: 0;
+        input {
+          border-bottom: 1px solid #000;
+          @include brandon-regular(24px);
+        }
+      }
+    }
+    .btn.primary-btn {
+      margin-top: 3em;
+      background: #000;
+      height: auto;
+      border: 0;
+      width: 100%;
+      @include brandon-medium(15px);
+      text-transform: uppercase;
+    }
+  }
+}

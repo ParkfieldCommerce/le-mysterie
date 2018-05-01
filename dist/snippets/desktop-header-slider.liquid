@@ -1,0 +1,20 @@
+{%- for link in linklists['main-menu'].links -%}
+  {%- if link.links != empty -%}
+    <div class="menu-slider" data-handle="{{link.handle}}">
+      <div class="header-menu swiper-container">
+        <div class="swiper-wrapper">
+          {%- for childlink in link.links -%}
+            {% capture linkhandles %}{{link.handle}}{% endcapture %}
+            {%- for product in collections[linkhandles].products -%}
+              <div class="swiper-slide">
+                <a href="{{ product.url }}">
+                  <img src="{{ product.featured_image | img_url:'master' }}" alt="{%- if product.featured_image.alt -%}{{ product.featured_image.alt }}{%- else -%}{{ product.featured_image }}{%- endif -%}">
+                </a>
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endfor -%}

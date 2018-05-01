@@ -75,7 +75,15 @@ MIT License
       });
 
       $(document).on('cart.requestComplete', function(event, cart) {
-        window.location.href = '/cart';
+        $('#PopupCart').addClass('mini-cart--open visible');
+        $('.page__overlay').addClass('page__overlay--open ');
+      });
+      $('.page__overlay, #PopupCart .close').click(function(){
+          $('.page__overlay').removeClass('page__overlay--open');
+        $('#PopupCart').removeClass('mini-cart--open');
+      });
+      $('.popup-outside').click(function(){
+          $(this).closest('.popup-inner').find('.popup-close').trigger('click');
       });
   </script>
 </body>
