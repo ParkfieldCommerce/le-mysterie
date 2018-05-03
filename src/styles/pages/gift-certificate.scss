@@ -2,7 +2,7 @@
   background: #fff;
   padding: 3em 0;
   @include s() {
-    padding: 1.5em 0;
+    padding: 1em 0;
   }
 
   .featured-image {
@@ -11,12 +11,12 @@
   }
 
   .heading {
-    @include brandon-medium(42px);
+    @include minionpro(42px);
     @include m() {
       font-size: 30px;
     }
     @include s() {
-      @include brandon-regular(30px);
+      @include minionpro(30px);
       text-align: center;
     }
   }
@@ -26,16 +26,22 @@
     color: #9e9e9e;
     line-height: 24px;
     @include s() {
-      margin-top: 20px;
+      margin-top: 17px;
+      line-height: 20px;
     }
   }
 
   .certificate-form {
+    width: 85%;
     @include flex();
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
+
+    @include s() {
+      width: 100%;
+    }
   }
 
   .input-wrapper {

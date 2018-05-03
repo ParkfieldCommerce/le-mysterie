@@ -67,6 +67,9 @@
 
         <button class="btn" type="submit" name="formSubmit">Submit</button>
       {% endform %}
+      <div class="extra-info m-hide l-hide">
+        {{ section.settings.extra_info }}
+      </div>
     </div>
   </div>
 </section>
@@ -96,6 +99,11 @@
         "type": "textarea",
         "id": "mobile_des",
         "label": "Mobile Description"
+      },
+      {
+        "type": "textarea",
+        "id": "extra_info",
+        "label": "Additional Mobile Info"
       }
     ]
   }

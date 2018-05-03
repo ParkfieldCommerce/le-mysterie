@@ -3,7 +3,10 @@
     text-align: center;
     margin-top: 20px;
     margin-bottom: 30px;
-    @include brandon-medium(3.125rem);
+    @include minionpro(3.125rem);
+    @include s() {
+      font-size: 24px;
+    }
   }
   .first-half {
     .form-test {

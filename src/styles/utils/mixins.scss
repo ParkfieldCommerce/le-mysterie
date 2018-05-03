@@ -193,3 +193,8 @@
   font-size: $fsize;
   font-weight: 600;
 }
+@mixin minionpro($fsize) {
+  font-family: 'MinionPro';
+  font-size: $fsize;
+  font-weight: 400;
+}

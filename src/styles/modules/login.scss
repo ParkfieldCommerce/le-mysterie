@@ -7,7 +7,7 @@
     padding-bottom: 5em;
   }
   h1 {
-    @include brandon-light(60px);
+    @include minionpro(60px);
     text-align: center;
     padding-top: 60px;
     margin: 0;
@@ -17,13 +17,15 @@
     }
     @include s() {
       font-size: 40px;
-      padding-top: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
   }
   h2 {
     @include brandon-medium(25px);
     text-align: center;
     padding-top: 50px;
+    padding-bottom: 20px;
     text-transform: uppercase;
     margin: 0;
     @include m() {
@@ -109,7 +111,11 @@
   .register,
   .fgt-pswd {
     margin-top: 20px;
-    @include brandon-light(1rem);
+    @include brandon-light(1.25rem);
+    @include s() {
+      margin-top: 0;
+      font-size: 1rem;
+    }
     a {
       color: #000;
       text-decoration: none;

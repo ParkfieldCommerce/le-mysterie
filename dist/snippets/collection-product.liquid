@@ -17,7 +17,7 @@
 <div class="collection-product {{ column_width }}{% if sold_out %} sold_out{% endif %}{% if on_sale %} on_sale{% endif %}">
   {% if product.featured_image %}
     <a class="image" href="{{ product.url | within: collection }}">
-      <img srcset="{{ product.featured_image | img_url: 'x960' }} 2x" src="{{ product.featured_image | img_url: 'x960' }}" alt="{{ product.featured_image.alt | escape }}">
+      <img srcset="{{ product.featured_image | img_url: 'x960' }} 2x" src="{{ product.featured_image | img_url: 'x960' }}" data-src="{{ product.featured_image | img_url: 'x960' }}" alt="{{ product.featured_image.alt | escape }}">
     </a>
   {% endif %}
 
@@ -52,13 +52,18 @@
         {%- endif -%}
         {%- if tag contains 'related' -%}
           {% assign productTag = tag | split: '_' | last %}
-          {% assign relatedProduct = all_products[productTag] %}
-          {%- for handleColors in all_products[productTag].tags -%}
-            {%- if handleColors contains 'color' -%}
-              {% assign colorSwatch = handleColors | split: '_' | last %}
-              <li><a class="color-filter {{colorSwatch | handleize}}" data-tag="{{productTag}}"></a></li>
-            {%- endif -%}
-          {%- endfor -%}
+          {% paginate collections.all.products by 1000 %}
+            {%- for prod in collections.all.products -%}
+              {%- if productTag == prod.handle -%}
+                {%- for handleColors in prod.tags -%}
+                  {%- if handleColors contains 'color' -%}
+                    {% assign colorSwatch = handleColors | split: '_' | last %}
+                    <li><a class="color-filter {{colorSwatch | handleize}}" data-tag="{{productTag}}"></a></li>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {% endpaginate %}
         {%- endif -%}
       {%- endfor -%}
     </ul>

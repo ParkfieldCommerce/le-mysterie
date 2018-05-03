@@ -66,6 +66,7 @@
     }
     .more-views,
     .magnify-msg {
+      @include brandon-regular(16px);
       position: absolute;
       top: 0%;
       color: #8a8a8a;
@@ -81,7 +82,7 @@
       width: 50%;
     }
     .product-title {
-      @include brandon-light(40px);
+      @include minionpro(40px);
     }
     .product-price {
       @include brandon-regular(25px);
@@ -293,4 +294,309 @@
       }
     }
   }//.product-row.desktop
+  .product-row.mobile {
+    @include m() {
+      display: none;
+    }
+    @include l() {
+      display: none;
+    }
+    .info-container {
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+    }
+    .product-title {
+      @include minionpro(24px);
+      width: 80%;
+      margin: 0;
+    }
+    .product-price {
+      width: 20%;
+      @include brandon-regular(20px);
+      text-align: right;
+    }
+    .mb-image-container {
+      height: 660px;
+      width: 100%;
+    }
+    .mb-images.swiper-container {
+      width: 100%;
+      height: 100%;
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        /* Center slide text vertically */
+        @include flex();
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+      .swiper-pagination-bullets {
+        bottom: 0;
+      }
+      .swiper-pagination-bullet-active {
+        background: #000;
+      }
+    }
+    .social-sharing {
+      position: relative;
+      top: -20px;
+      z-index: 100;
+      .button.share {
+        text-align: left;
+      }
+    }
+    .color-picker {
+      @include flex();
+      margin-bottom: 20px;
+      margin-top: 20px;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      .color-label {
+        width: 30%;
+        position: relative;
+        @include flex();
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: column;
+                flex-flow: column;
+        label {
+          @include brandon-light(18px);
+          text-transform: uppercase;
+          margin: 0;
+        }
+        span {
+          color: #8a8a8a;
+          @include brandon-regular(18px);
+        }
+        &:before {
+          position: absolute;
+          content: '';
+          width: 15px;
+          border-bottom: 1px solid #000;
+          right: 20px;
+          top: 25px;
+        }
+      } //.color-label
+      .swatches {
+        @include flex();
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        li {
+          width: 50px;
+          @include flex();
+          -webkit-box-pack: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          .color-filter {
+            width: 31px;
+            height: 31px;
+            &.active {
+              position: relative;
+              &:before {
+                position: absolute;
+                content: '';
+                top: -3px;
+                left: -3px;
+                right: -3px;
+                bottom: -3px;
+                border: 1px solid #000;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+    } //.color-picker
+    .product-options {
+      margin-top: 20px;
+      @include flex();
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      .option-wrapper {
+        width: 50%;
+        padding-right: 0px;
+        label {
+          @include brandon-light(18px);
+          text-transform: uppercase;
+          margin: 0 0 10px;
+        }
+        .select-wrapper {
+          width: 90%;
+          &:after {
+            font-size: 18px;
+            top: 18px;
+            pointer-events: none;
+            right: 15px;
+            content: '\f078';
+          }
+        }
+        select {
+          height: auto;
+          border: 0;
+          border-bottom: 1px solid #000;
+          padding: 20px 35px 10px;
+          @include brandon-regular(20px);
+        }
+      } //.option-wrapper
+      .qty-wrapper {
+        width: 50%;
+        label {
+          @include brandon-light(18px);
+          text-transform: uppercase;
+          margin: 0 0 10px;
+        }
+        .quantity-adjust {
+          margin: 0;
+          width: 100%;
+          padding: 7px 0 10px;
+          border-bottom: 1px solid #000;
+          @include flex();
+          -webkit-box-orient: horizontal;
+          -webkit-box-direction: normal;
+              -ms-flex-flow: row wrap;
+                  flex-flow: row wrap;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-box-pack: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+          .adjust {
+            width: 15%;
+            color: #000;
+            font-size: 25px;
+            font-weight: 300;
+            @include flex();
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+          }
+          .quantity {
+            @include brandon-regular(20px);
+            width: 70%!important;
+            font-size: 20px!important;
+          }
+        }
+      } // .qty-wrapper
+      .btn.primary-btn {
+        height: auto;
+        width: 100%;
+        border: 0;
+        background: #000;
+        @include brandon-medium(20px);
+        padding: 10px 0;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        &:hover {
+          background: #545454;
+          @include transition();
+        }
+      }
+      .js-description-grab {
+        width: 100%;
+        .accordion {
+          position: relative;
+          width: 100%;
+        }
+        .block {
+          @include brandon-light(18px);
+          text-transform: uppercase;
+          padding: 10px 0;
+          cursor: pointer;
+          span {
+            margin-left: 10px;
+            font-size: 20px;
+          }
+        }
+        .pane {
+          @include brandon-regular(18px);
+          overflow-x: hidden;
+          opacity: 0;
+          visibility: hidden;
+          height: auto;
+          padding: 10px 0;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 42px;
+        }
+      }
+    }
+    .mb-product-description {
+      padding: 20px 0;
+      ul,
+      p {
+        @include brandon-regular(18px);
+        color: #8a8a8a;
+        line-height: 25px;
+      }
+      h5 {
+        @include brandon-regular(20px);
+        color: #8a8a8a;
+        margin: 0;
+      }
+    }
+    .js-mb-description-grab {
+      width: 100%;
+      .accordion {
+        position: relative;
+        width: 100%;
+      }
+      .block {
+        @include brandon-light(18px);
+        text-transform: uppercase;
+        padding: 10px 0;
+        cursor: pointer;
+        span {
+          margin-left: 10px;
+          font-size: 20px;
+        }
+      }
+      .pane {
+        @include brandon-regular(18px);
+        overflow-x: hidden;
+        opacity: 0;
+        visibility: hidden;
+        height: auto;
+        padding: 10px 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 42px;
+      }
+    }
+  }
 }

@@ -16,8 +16,8 @@
     <h2>{{ category }}</h2>
     {%- for block in section.blocks -%}
       {%- if block.settings.category == modCategory -%}
-        <ul class="accordion">
-          <h3 class="block"><i class="fa fa-plus" aria-hidden="true"></i>{{ block.settings.question }}</h3>
+        <ul class="mb-accordion">
+          <h3 class="block"><span class="plus">+</span>{{ block.settings.question }}</h3>
           <p class="mb-pane">{{ block.settings.pane }}</p>
         </ul>
       {%- endif -%}

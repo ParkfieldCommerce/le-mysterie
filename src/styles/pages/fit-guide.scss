@@ -1,7 +1,7 @@
 .fit-guide-page {
   position: relative;
   .heading {
-    @include brandon-regular(60px);
+    @include minionpro(60px);
     text-align: center;
     text-transform: capitalize;
     padding-top: 50px;
@@ -37,7 +37,7 @@
       border: 1px solid #000;
       height: 50px;
       border-radius: 0;
-      padding: 0 60px;
+      padding: 0 110px;
       text-transform: uppercase;
       @include brandon-medium(18px);
     }
@@ -113,18 +113,19 @@
   }
 
   .accordion {
+    width: 100%;
+    position: relative;
     .block {
-      @include brandon-light(24px);
+      @include minionpro(24px);
       cursor: pointer;
       color: #000;
-      i {
+      span {
         margin-right: 20px;
-        position: relative;
-        top: 3px;
       }
       @include s() {
         margin: 0;
-        font-size: 20px;
+        padding-bottom: 20px;
+        font-size: 17px;
       }
     }
     .pane {
@@ -132,10 +133,18 @@
       margin-left: 40px;
       color: #8a8a8a;
       overflow-x: hidden;
-      height: 0;
-      &.active {
-        height: 170px;
-        @include transition();
+      height: auto;
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 37px;
+      padding-bottom: 20px;
+      @include s() {
+        top: 50px;
+        padding-bottom: 40px;
+        margin-left: 25px;
       }
     }
   } //.accordion
@@ -152,15 +161,26 @@
         height: 370px;
       }
       @include s() {
-        height: 370px;
+        height: 180px;
       }
     }
     .info {
       @include brandon-regular(18px);
       padding: 20px 0;
       margin-bottom: 10px;
+      padding-right: 100px;
+      p {
+        margin-bottom: 10px;
+      }
+      @include s() {
+        padding-right: 0;
+      }
     }
     .swiper-container.gallery-top {
+      .swiper-button-prev,
+      .swiper-button-next {
+        top: 39%;
+      }
       @include m() {
         .swiper-button-prev,
         .swiper-button-next {
@@ -170,7 +190,8 @@
       @include s() {
         .swiper-button-prev,
         .swiper-button-next {
-          top: 35%;
+          top: 25%;
+          height: 20px;
         }
       }
     }
@@ -211,8 +232,9 @@
         bottom: 28%;
       }
       @include s() {
+        display: none;
         font-size: 15px;
-        bottom: 25%;
+        bottom: 50%;
       }
     }
   }

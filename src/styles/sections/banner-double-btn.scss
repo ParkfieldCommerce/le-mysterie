@@ -8,15 +8,15 @@
       -ms-flex-pack: center;
           justify-content: center;
   .title {
-    @include brandon-regular(60px);
+    @include minionpro(60px);
     text-align: center;
     color: #3f3f3f;
     width: 100%;
     @include m() {
-      @include brandon-regular(50px);
+      font-size: 50px;
     }
     @include s() {
-      @include brandon-regular(40px);
+      font-size: 30px;
       margin-bottom: 5px;
     }
   }

@@ -1,7 +1,7 @@
 <!-- /snippets/template-collection.liquid -->
 
 {% assign column_width = 'column l3 m6 s6' %}
-{% assign pagination = pagination | default: 50 %}
+{% assign pagination = pagination | default: 1000 %}
 
 {% if template contains 'collection' and collection.all_tags.size > 0 %}
   {% for tag in collection.all_tags%}
@@ -25,7 +25,7 @@
 
 {% endif %}
 
-{% paginate collection.products by pagination %}
+{% paginate collection.products by 1000 %}
   <section class="collection-pg" data-section-type="collection">
     <div class="container xl">
       <h1 class="heading">{{ collection.title }}</h1>

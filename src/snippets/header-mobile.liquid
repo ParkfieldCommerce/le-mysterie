@@ -1,7 +1,7 @@
 <nav class="mobile-header l-hide xl-hide">
   <div class="logo">
     <a href="{{ shop.url }}">
-      <img src="{{ logo | img_url:'master' }}" alt="{{ logo_alt }}">
+      <img src="{{ logo_mobile | img_url:'master' }}" alt="{{ logo_alt }}">
     </a>
   </div>
   <div class="menu js-mobile-menu">
@@ -20,7 +20,7 @@
         {% endif %}
     </div>
     <div class="cart">
-      <a href="/cart">
+      <a href="/cart" id="CartLink" data-trigger="popup" data-target="#PopupCart.popup" aria-controls="Cart" aria-expanded="false" class="cart-icon">
         {%- if cart.item_count > 0 -%}
           <span data-cart-item-count>{{ cart.item_count }}</span>
         {%- endif -%}

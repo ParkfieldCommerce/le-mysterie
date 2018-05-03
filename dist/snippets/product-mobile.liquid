@@ -1,0 +1,126 @@
+<div class="product-row mobile">
+  <div class="info-container">
+    <h3 class="product-title">{{ product.title }}</h3>
+
+    <span class="hidden">{{ 'product.regular_price' | t }}</span>
+    <span id="ProductPrice" class="product-price" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+      {{ current_variant.price | money }}
+    </span>
+
+    {% if on_sale %}
+      <p id="OnSale">
+        <span class="hidden">{{ 'product.original_price' | t }}</span>
+        <span>{{ 'product.original_price' | t }}</span>
+        <s id="ComparePrice">{{ product.compare_at_price | money }}</s>
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="mb-image-container">
+    <div class="mb-images swiper-container">
+      <div class="swiper-wrapper">
+        {%- for image in product.images -%}
+          <div class="swiper-slide">
+            <img src="{{ image.src | product_img_url: 'grande' }}" alt="{{ image.alt }}">
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  {% include 'social-sharing' %}
+
+  <div class="color-picker">
+    <div class="color-label">
+      <label>Color</label>
+      {%- for tag in product.tags -%}
+        {%- if tag contains 'color' -%}
+          <span>{{ tag | split: '_' | last | capitalize }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <ul class="swatches">
+      {%- for tag in product.tags -%}
+        {%- if tag contains 'color' -%}
+          <li><a href="/products/{{ product.handle }}" class="color-filter active {{tag | split: '_' | last | handleize}}"></a></li>
+        {%- endif -%}
+        {%- if tag contains 'related' -%}
+          {% assign productTag = tag | split: '_' | last %}
+          {% assign relatedProduct = all_products[productTag] %}
+          {%- for handleColors in all_products[productTag].tags -%}
+            {%- if handleColors contains 'color' -%}
+              {% assign colorSwatch = handleColors | split: '_' | last %}
+              <li><a class="color-filter {{colorSwatch | handleize}}" href="/products/{{productTag}}"></a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+
+  <div class="product-options" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+    {% unless product.options.size == 1 and product.variants[0].title == 'Default Title' %}
+      <div class="option-wrapper">
+        <label>Size</label>
+        <div class="select-wrapper">
+          <select>
+            {% for variant in product.variants %}
+              {% if variant.available %}
+                <option
+                  value="{{ variant.id }}">{{ variant.title }}
+                </option>
+              {% else %}
+                <option disabled="disabled">
+                  {{ variant.title }} - {{ 'product.sold_out' | t }}
+                </option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    {% endunless %}
+
+    <select name="id" id="productSelect" class="product-single__variants" data-index="option{{ forloop.index }}" style="display: none;">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          <option
+            value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+          </option>
+        {% else %}
+          <option disabled="disabled">
+            {{ variant.title }} - {{ 'product.sold_out' | t }}
+          </option>
+        {% endif %}
+      {% endfor %}
+    </select>
+
+    <div class="qty-wrapper">
+      <label for="Quantity">{{ 'product.quantity' | t }}</label>
+      <div class="quantity-adjust">
+        <a class="adjust" data-change="-1">&#8211;</a>
+         <input type="number" id="Quantity" class="quantity" name="quantity" value="1" min="1">
+        <a class="adjust" data-change="1">&#43;</a>
+      </div>
+    </div>
+
+    {% if sold_out %}
+      <button class="btn primary-btn" type="submit" name="add" disabled>
+        <span id="AddToCartText">{{ 'product.sold_out' | t }}</span>
+      </button>
+    {% else %}
+      <button class="btn primary-btn" id="mb-main-product-add" type="submit" name="add" >
+        <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
+      </button>
+    {% endif %}
+
+    <div class="mb-product-description" itemprop="description">
+      {{ product.description }}
+    </div>
+
+    <div class="js-mb-description-grab"></div>
+  </div>
+</div>

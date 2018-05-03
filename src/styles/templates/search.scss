@@ -1,0 +1,88 @@
+.search-pg {
+  h1 {
+    @include minionpro(50px);
+    text-align: center;
+    padding: .5em 0;
+  }
+  form {
+    @include flex();
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    position: relative;
+    top: 0px;
+    left: 0;
+    right: 0;
+    height: auto;
+    overflow: hidden;
+    overflow-y: auto;
+        margin-bottom: 40px;
+    .input-wrapper {
+      width: 30%;
+      position: relative;
+      @include m() {
+        width: 80%;
+        text-align: center;
+      }
+      @include s() {
+        width: 90%;
+      }
+    }
+    label {
+      margin: 0;
+      @include s() {
+        width: 80%;
+        margin: auto;
+      }
+    }
+    input {
+      height: 35px;
+      width: 80%;
+      border: 0;
+      border-bottom: 1px solid #000;
+      padding: 5px 0;
+      background: rgba(0,0,0,0);
+      @include inputPlaceholder(#000);
+      @include brandon-light(18px);
+      @include m() {
+        width: 90%;
+        margin: auto;
+      }
+      @include s() {
+        margin: auto;
+      }
+    }
+    button {
+      background: rgba(0,0,0,0);
+      position: absolute;
+      border: 0;
+      z-index: 1;
+      right: 10%;
+      top: 15px;
+      @include m() {
+        width: 50px;
+        right: 6%;
+        padding: 0;
+      }
+      @include s() {
+        width: 50px;
+        right: 6%;
+        padding: 0;
+      }
+    }
+  } //form
+  .heading a {
+    @include brandon-medium(2rem);
+    color: #000;
+    text-decoration: none;
+  }
+  .row {
+    margin-bottom: 30px;
+  }
+  p {
+    @include brandon-regular(24px);
+  }
+}

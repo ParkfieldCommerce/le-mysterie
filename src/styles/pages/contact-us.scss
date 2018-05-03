@@ -1,7 +1,7 @@
 .contact-us-page {
   background: #fff;
   .banner-contact {
-    height: 400px;
+    height: 430px;
     background-size: cover;
     background-position: 50% 50%;
     @include flex();
@@ -26,17 +26,17 @@
   h1 {
     text-align: center;
     color: #fff;
-    @include brandon-medium(80px);
+    @include minionpro(80px);
     @include m() {
       font-size: 60px;
     }
     @include s() {
-      font-size: 40px;
+      font-size: 50px;
     }
   }
   .heading {
     text-align: center;
-    margin: 3em 0 0;
+    margin: 100px 0 30px;
     padding-bottom: 1em;
     @include brandon-medium(28px);
     text-transform: uppercase;
@@ -55,6 +55,9 @@
     padding: 30px 0;
     width: 95%;
     margin: auto;
+    @include s() {
+      line-height: 20px;
+    }
   }
 
   .btn-container {
@@ -70,8 +73,11 @@
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    width: 70%;
+    margin: auto;
     @include s() {
       padding-bottom: 3em;
+      width: 100%;
     }
   }
 
@@ -100,9 +106,9 @@
     visibility: hidden;
     background: #fff;
     position: absolute;
-    left: 5%;
-    right: 5%;
-    top: 5%;
+    left: 15%;
+    right: 15%;
+    top: 20%;
     height: auto;
     border: 1px solid #000;
     h1 {
@@ -119,7 +125,7 @@
       width: 50%;
       margin: auto;
       text-align: center;
-      @include brandon-light(24px);
+      @include minionpro(24px);
       padding-bottom: 20px;
       @include s() {
         width: 95%;
@@ -158,7 +164,7 @@
     overflow-x: hidden;
     height: 0;
     @include s() {
-      height: 700px;
+      height: 850px;
     }
     form#contact_form {
       width: 97%;
@@ -236,6 +242,17 @@
       padding: 10px 0;
       text-transform: uppercase;
       margin: 30px 0;
+    }
+  }
+  .extra-info {
+    color: #8a8a8a;
+    @include brandon-regular(14px);
+    line-height: 20px;
+    p,
+    ul {
+      color: #8a8a8a;
+      @include brandon-regular(14px);
+      line-height: 20px;
     }
   }
 }

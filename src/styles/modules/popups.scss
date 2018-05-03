@@ -79,15 +79,75 @@
 
 // Popup Cart
 
-#PopupCart {
-  .popup-content {
-    width: 400px;
+#PopupCart{
+  font-family: 'BrandonRegular';
+  .image-container{
+    padding:0;
+    img{
+      width:90%;
+    }
   }
-  p {
-    margin-bottom: $gutter/3;
+  .item-title{
+    a{
+      text-decoration:none;
+      font-size:1rem;
+    }
   }
-  .cart-item {
-    margin-bottom: $gutter/3;
+  .money-container{
+    margin-top:10px;
+  }
+  hr{
+    border:1px solid #f2f2f2;
+  }
+  .popup-close{
+    width:18px;
+  }
+}
+//Cart view
+.popup.overlay{
+  .popup-content{
+    left:50%;
+    -webkit-transform:translate(-50%, -50%);
+            transform:translate(-50%, -50%);
+    height:100%;
+    left:100%;
+    div {
+      margin-bottom: 20px;
+    }
+    div,
+    p,
+    a {
+      color: #000;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    .btn.primary-btn {
+      background: #000;
+      color: #fff;
+      border: 0;
+      height: auto;
+      padding: 20px 0;
+      width: 100%;
+      display: block;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  }
+  .popup-inner{
+    -webkit-transform:translateY(0);
+            transform:translateY(0);
+    -webkit-transform:translateX(400px);
+            transform:translateX(400px);
+  }
+}
+.popup.overlay.visible{
+  .popup-content{
+    left:50%;
+  }
+  .popup-inner{
+    -webkit-transform:translateX(0);
+            transform:translateX(0);
+
   }
 }
 

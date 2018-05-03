@@ -276,8 +276,9 @@ document.addEventListener("DOMContentLoaded", function() {
           freeMode: true,
           breakpoints: {
             425: {
-              slidesPerView: 2,
-              slidesPerColumn: 1
+              slidesPerView: 4,
+              slidesPerColumn: 1,
+              spaceBetween: 5
             },
             768: {
               slidesPerView: 3
@@ -413,6 +414,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
     }
+
+    // Lazy Load products
+    var bLazy = new Blazy({
+      container: '.collection-product',
+      selector: 'img'
+    });
   }
 
   // Gift Certificate Page
@@ -489,10 +496,11 @@ document.addEventListener("DOMContentLoaded", function() {
     var prevBtn = document.querySelector('.btn-prev');
     var telDiv = document.querySelector('.telephone');
     var inStoreDiv = document.querySelector('.in-store');
+    var lead = document.querySelector('.schedule-a-fitting .lead');
 
     // Velocity Options
     var open = { height: '200px' };
-    var inStoreOpen = { height: '1300px' };
+    var inStoreOpen = { height: '1400px' };
     var close = { height: 0 };
     var noOpacity = { opacity: 0 };
     var opacity = { opacity: 1 };
@@ -513,16 +521,31 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     inStoreTrigger.addEventListener('click', function() {
+      this.closest('.btn-container').classList.add('mb-js-hide');
       telTrigger.velocity(noOpacity, noVisible, duration);
       skypeBtn.velocity(noOpacity, noVisible, duration);
       inStoreDiv.velocity(inStoreOpen, duration);
+      lead.innerHTML = 'You are one step closer to finding your perfect fit. In order to schedule your fitting we just need a little more information.';
+
     });
 
     prevBtn.addEventListener('click', function() {
+      this.closest('.container').querySelector('.btn-container').classList.remove('mb-js-hide');
       telTrigger.velocity(opacity, visible, duration);
       skypeBtn.velocity(opacity, visible, duration);
       inStoreDiv.velocity(close, duration);
+      lead.innerHTML = 'Schedule a complimentary one on one fitting today. We are available via telephone, in person, and Skype.'
     });
+
+    var formSuccessClose = document.querySelectorAll('.success-btn-close');
+    if (formSuccessClose.length > 0) {
+      for (var i = 0; i < formSuccessClose.length; i++) {
+        formSuccessClose[i].addEventListener('click', function() {
+          var parent = this.closest('.in-store');
+          parent.velocity({ opacity: 0, visibility: 'hidden' }, { duration: 500 });
+        });
+      }
+    }
   }
 
   // Contact Us
@@ -580,50 +603,98 @@ document.addEventListener("DOMContentLoaded", function() {
         findRightPanel.classList.add('active');
       });
     }
-    var question = document.querySelectorAll('.question');
+    var question = document.querySelectorAll('.dk-accordion');
     for (var i = 0; i < question.length; i++) {
       question[i].addEventListener('click', function(e) {
-        var target = e.target.closest('h3');
-        var iEl = target.childNodes[0];
+        var target = e.target.closest('.question');
+        var iEl = target.firstChild;
         var pane = target.nextElementSibling;
-        if (iEl.classList.contains('fa-plus')) {
-          iEl.classList.remove('fa-plus');
-          iEl.classList.add('fa-minus');
-        } else {
-          iEl.classList.add('fa-plus');
-          iEl.classList.remove('fa-minus');
-        }
         var isActive = pane.classList.contains('active');
+        var paneHeight = pane.clientHeight;
+        var duration = { duration: 500 };
+        var openOptions = {
+          height: paneHeight,
+          visibility: 'visible',
+          opacity: 1
+        };
+        var addMargin = {
+          marginBottom: paneHeight
+        };
+        var closeOptions = {
+          height: 'auto',
+          visibility: 'hidden',
+          opacity: 0
+        };
+        var removeMargin = {
+          marginBottom: 20
+        };
+        if (iEl.classList.contains('plus')) {
+          iEl.classList.remove('plus');
+          iEl.classList.add('minus');
+          iEl.innerHTML = '-';
+        } else {
+          iEl.classList.add('plus');
+          iEl.classList.remove('minus');
+          iEl.innerHTML = '+';
+        }
         if (isActive === false) {
           pane.classList.add('active');
+          target.velocity(addMargin, duration);
+          pane.velocity(openOptions, duration);
         } else {
           pane.classList.remove('active');
+          target.velocity(removeMargin, duration);
+          pane.velocity(closeOptions, duration);
         }
       });
     }
 
     // Mobile Functions
-    var mbAccordion = document.querySelectorAll('.accordion');
+    var mbAccordion = document.querySelectorAll('.mb-accordion');
     for (var i = 0; i < mbAccordion.length; i++) {
       mbAccordion[i].addEventListener('click', function(e) {
-        var target = e.target.closest('h3');
-        var icon = target.childNodes[0];
-        var isPlus = icon.classList.contains('fa-plus');
+        var target = e.target.closest('.block');
+        var icon = target.firstChild;
+        var isPlus = icon.classList.contains('plus');
 
         if (isPlus === true) {
-          icon.classList.remove('fa-plus');
-          icon.classList.add('fa-minus');
+          icon.classList.remove('plus');
+          icon.classList.add('minus');
+          icon.innerHTML = '-'
         } else {
-          icon.classList.add('fa-plus');
-          icon.classList.remove('fa-minus');
+          icon.classList.add('plus');
+          icon.classList.remove('minus');
+          icon.innerHTML = '+'
         }
 
         var mbPane = target.nextElementSibling;
         var isMbPaneActive = mbPane.classList.contains('active');
+        var paneHeight = mbPane.clientHeight;
+        var duration = { duration: 500 };
+        var openOptions = {
+          height: paneHeight,
+          visibility: 'visible',
+          opacity: 1
+        };
+        var addMargin = {
+          marginBottom: paneHeight
+        };
+        var closeOptions = {
+          height: 'auto',
+          visibility: 'hidden',
+          opacity: 0
+        };
+        var removeMargin = {
+          marginBottom: 0
+        };
         if (isMbPaneActive === false) {
           mbPane.classList.add('active');
+          target.velocity(addMargin, duration);
+          mbPane.velocity(openOptions, duration);
         } else {
           mbPane.classList.remove('active');
+          target.velocity(removeMargin, duration);
+          mbPane.velocity(closeOptions, duration);
         }
       });
     }
@@ -647,32 +718,53 @@ document.addEventListener("DOMContentLoaded", function() {
         activeTabPanel.classList.remove('active');
         findRightPanel.classList.add('active');
 
-        var panelBlock = findRightPanel.childNodes[1];
-        var iElem = panelBlock.childNodes[0];
-        var isPlus = iElem.classList.contains('fa-plus');
-        var panelPane = findRightPanel.childNodes[3];
-        var isPaneActive = panelPane.classList.contains('active');
+        var block = findRightPanel.querySelector('.accordion .block');
+        var pane = findRightPanel.querySelector('.accordion .pane');
+        var otherOpenPane = document.querySelector('.pane.js-open');
+        var paneHeight = pane.clientHeight;
+        var iEl = block.firstChild;
+        var duration = { duration: 500 };
+        var openOptions = {
+          height: paneHeight,
+          visibility: 'visible',
+          opacity: 1
+        };
+        var addMargin = {
+          marginBottom: paneHeight
+        };
+        var closeOptions = {
+          height: 'auto',
+          visibility: 'hidden',
+          opacity: 0
+        };
+        var removeMargin = {
+          marginBottom: 0
+        };
 
-        if (isPlus === true) {
-          iElem.classList.remove('fa-plus');
-          iElem.classList.add('fa-minus');
+        if (iEl.classList.contains('plus') === true) {
+          iEl.classList.remove('plus');
+          iEl.classList.add('minus');
+          iEl.innerHTML = '-';
         } else {
-          iElem.classList.add('fa-plus');
-          iElem.classList.remove('fa-minus');
+          iEl.classList.add('plus');
+          iEl.classList.remove('minus');
+          iEl.innerHTML = '+';
         }
 
-        if (isPaneActive === false) {
-          panelPane.classList.add('active');
-          panelPane.velocity({ visibility: 'visible', opacity: 1 }, { duration: 700 });
+        if (pane.classList.contains('js-open') === false) {
+          pane.classList.add('js-open');
+          pane.velocity(openOptions, duration);
+          block.velocity(addMargin, duration);
         } else {
-          panelPane.classList.remove('active');
-          panelPane.velocity({ visibility: 'hidden', opacity: 0 }, { duration: 700 });
+          pane.classList.remove('js-open');
+          pane.velocity(closeOptions, duration);
+          block.velocity(removeMargin, duration);
         }
       });
     }
     for (var i = 0; i < tabPanels.length; i++) {
       tabPanels[i].addEventListener('click', function(e) {
-        var target = e.target.closest('h3');
+        var target = e.target.closest('.accordion');
         var targetData = target.parentNode.getAttribute('data-tabpanel');
         var activeTabItem = document.querySelector('.tab-item.active');
         var activeTabPanel = document.querySelector('.tab-panel.active');
@@ -683,26 +775,46 @@ document.addEventListener("DOMContentLoaded", function() {
         target.parentNode.classList.add('active');
         findRightTabItem.classList.add('active');
 
-        var panelBlock = target;
-        var iElem = panelBlock.childNodes[0];
-        var isPlus = iElem.classList.contains('fa-plus');
-        var pane = panelBlock.nextElementSibling;
-        var isPaneActive = pane.classList.contains('active');
+        var block = target.querySelector('.block');
+        var pane = target.querySelector('.pane');
+        var paneHeight = pane.clientHeight;
+        var iEl = block.firstChild;
+        var duration = { duration: 500 };
+        var openOptions = {
+          height: paneHeight,
+          visibility: 'visible',
+          opacity: 1
+        };
+        var addMargin = {
+          marginBottom: paneHeight
+        };
+        var closeOptions = {
+          height: 'auto',
+          visibility: 'hidden',
+          opacity: 0
+        };
+        var removeMargin = {
+          marginBottom: 0
+        };
 
-        if (isPlus === true) {
-          iElem.classList.remove('fa-plus');
-          iElem.classList.add('fa-minus');
+        if (iEl.classList.contains('plus') === true) {
+          iEl.classList.remove('plus');
+          iEl.classList.add('minus');
+          iEl.innerHTML = '-';
         } else {
-          iElem.classList.add('fa-plus');
-          iElem.classList.remove('fa-minus');
+          iEl.classList.add('plus');
+          iEl.classList.remove('minus');
+          iEl.innerHTML = '+';
         }
 
-        if (isPaneActive === false) {
-          pane.classList.add('active');
-          pane.velocity({ visibility: 'visible', opacity: 1 }, { duration: 700 });
+        if (pane.classList.contains('js-open') === false) {
+          pane.classList.add('js-open');
+          pane.velocity(openOptions, duration);
+          block.velocity(addMargin, duration);
         } else {
-          pane.classList.remove('active');
-          pane.velocity({ visibility: 'hidden', opacity: 0 }, { duration: 700 });
+          pane.classList.remove('js-open');
+          pane.velocity(closeOptions, duration);
+          block.velocity(removeMargin, duration);
         }
       });
     }
@@ -737,21 +849,45 @@ document.addEventListener("DOMContentLoaded", function() {
     var accordion = document.querySelectorAll('.accordion');
     for (var i = 0; i < accordion.length; i++) {
       accordion[i].addEventListener('click', function(e) {
-        var target = e.target.closest('h3');
-        var iElem = target.childNodes[0];
+        var target = e.target.closest('.block');
+        var iElem = target.firstChild;
         var pane = target.nextElementSibling;
-        if (iElem.classList.contains('fa-plus')) {
-          iElem.classList.remove('fa-plus');
-          iElem.classList.add('fa-minus');
+        var paneHeight = pane.clientHeight;
+        var duration = { duration: 500 };
+        var openOptions = {
+          height: paneHeight,
+          visibility: 'visible',
+          opacity: 1
+        };
+        var addMargin = {
+          marginBottom: paneHeight
+        };
+        var closeOptions = {
+          height: 'auto',
+          visibility: 'hidden',
+          opacity: 0
+        };
+        var removeMargin = {
+          marginBottom: 0
+        };
+        if (iElem.classList.contains('plus')) {
+          iElem.classList.remove('plus');
+          iElem.classList.add('minus');
+          iElem.innerHTML = '-'
         } else {
-          iElem.classList.add('fa-plus');
-          iElem.classList.remove('fa-minus');
+          iElem.classList.add('plus');
+          iElem.classList.remove('minus');
+          iElem.innerHTML = '+'
         }
         var isActive = pane.classList.contains('active');
         if (isActive === false) {
           pane.classList.add('active');
+          target.velocity(addMargin, duration);
+          pane.velocity(openOptions, duration);
         } else {
           pane.classList.remove('active');
+          target.velocity(removeMargin, duration);
+          pane.velocity(closeOptions, duration);
         }
       });
     }
@@ -1081,5 +1217,100 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       });
     }
+  }
+
+  // Product Page mobile
+  var mobileProductPg = document.querySelectorAll('.product-row.mobile');
+  if (mobileProductPg.length > 0) {
+    // Mobile Slider
+    var prodMbSwiper = new Swiper('.mb-images.swiper-container', {
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    });
+
+    // Mobile accordion
+    var getH5 = document.querySelectorAll('.mb-product-description h5');
+    var jsDescriptionGrab = document.querySelector('.js-mb-description-grab');
+    for (var i = 0; i < getH5.length; i++) {
+      var insideH5 = getH5[i].innerHTML;
+      var getSibling = getH5[i].nextElementSibling.innerHTML;
+      var accordion = document.createElement('div');
+      var block = document.createElement('div');
+      var pane = document.createElement('div');
+      jsDescriptionGrab.appendChild(accordion)
+      accordion.appendChild(block);
+      accordion.appendChild(pane);
+      accordion.classList.add('accordion');
+      block.classList.add('block');
+      pane.classList.add('pane');
+      block.innerHTML = insideH5+'<span>+</span>';
+      pane.innerHTML = getSibling;
+
+      getH5[i].innerHTML = ''
+      getH5[i].nextElementSibling.innerHTML = ''
+    }
+    var initAccordion = document.querySelectorAll('.accordion');
+    for (var i = 0; i < initAccordion.length; i++) {
+      initAccordion[i].addEventListener('click', function(e) {
+        var target = e.target.closest('.block');
+        var pane = target.nextElementSibling;
+        var paneHeight = pane.clientHeight;
+        var isOpen = pane.classList.contains('js-open');
+        var duration = { duration: 500 };
+        var openOptions = {
+          height: paneHeight,
+          visibility: 'visible',
+          opacity: 1
+        };
+        var addMargin = {
+          marginBottom: paneHeight
+        };
+        var closeOptions = {
+          height: 'auto',
+          visibility: 'hidden',
+          opacity: 0
+        };
+        var removeMargin = {
+          marginBottom: 0
+        };
+
+        if (isOpen === false) {
+          pane.classList.add('js-open');
+          target.velocity(addMargin, duration);
+          pane.velocity(openOptions, duration);
+        } else {
+          pane.classList.remove('js-open');
+          target.velocity(removeMargin, duration);
+          pane.velocity(closeOptions, duration);
+        }
+     });
+    }
+
+    // QTY adjust
+    var mbAdjustBtn = document.querySelectorAll('.product-row.mobile .qty-wrapper .adjust');
+    for (var i = 0; i < mbAdjustBtn.length; i++) {
+      mbAdjustBtn[i].addEventListener('click', function() {
+        var dataChange = parseInt(this.dataset.change);
+        var qtyInput = this.closest('.qty-wrapper').querySelector('.quantity');
+        var qtyVal = parseInt(qtyInput.value);
+        var newVal = Math.abs(dataChange + qtyVal);
+        if (qtyVal === 1) {
+          if (dataChange === 1) {
+            qtyInput.value = newVal;
+          }
+        } else {
+          qtyInput.value = newVal;
+        }
+      });
+    }
+
+    // Add To Cart
+    var addMainProduct = document.querySelector('#mb-main-product-add');
+    addMainProduct.addEventListener('click', function() {
+      var variantId = this.closest('.product-options').querySelector('.option-wrapper .select-wrapper select').value;
+      var inputQty = this.closest('.product-options').querySelector('.qty-wrapper .quantity').value;
+      CartJS.addItem(variantId, inputQty);
+    });
   }
 });

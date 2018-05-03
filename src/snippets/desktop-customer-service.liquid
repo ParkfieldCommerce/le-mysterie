@@ -25,10 +25,12 @@
         <h2>{{ category | capitalize }}</h2>
         {%- for block in section.blocks -%}
           {%- if block.settings.category == modCategory -%}
-              <h3 class="question"><i class="fa fa-plus" aria-hidden="true"></i>{{ block.settings.question }}</h3>
-              <p class="pane">
-                {{ block.settings.pane }}
-              </p>
+              <div class="dk-accordion">
+                <h3 class="question"><span class="plus">+</span>{{ block.settings.question }}</h3>
+                <p class="pane">
+                  {{ block.settings.pane }}
+                </p>
+              </div>
           {%- endif -%}
         {%- endfor -%}
       </li>

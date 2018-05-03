@@ -7,7 +7,7 @@
           flex-flow: row wrap;
 
   h3 {
-    @include brandon-medium(1.25rem);
+    @include minionpro(1.25rem);
     margin: 0;
     width: 100%;
     @include s() {

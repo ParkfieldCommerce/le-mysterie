@@ -8,16 +8,17 @@
 {% assign search_show_button = true %}
 
 {% paginate search.results by 10 %}
-
+<section class="search-pg">
   <div class="container l">
-
-    {% include 'theme-breadcrumbs' %}
+    <div class="acct-crumbs">
+      {% include 'theme-breadcrumbs' %}
+    </div>
 
     {% if search.performed %}
       {% if search.results_count > 0 %}
-        <h1 class="h3">{{ 'search.results_for_html' | t: terms: search.terms }}</h1>
+        <h1>{{ 'search.results_for_html' | t: terms: search.terms }}</h1>
       {% else %}
-        <h1 class="h3">{{ 'search.no_results_html' | t: terms: search.terms }}</h1>
+        <h1>{{ 'search.no_results_html' | t: terms: search.terms }}</h1>
       {% endif %}
     {% else %}
       <h1>{{ 'search.title' | t }}</h1>
@@ -26,10 +27,6 @@
     {% include 'form-search' %}
 
     {% if search.performed %}
-
-      {% if search.results_count > 0 %}
-        <hr class="hr">
-      {% endif %}
 
       {% for item in search.results %}
 
@@ -58,7 +55,7 @@
           {% endif %}
 
           <div class="column {% if item.featured_image or item.image %}l10 m9 s8{% else %}l12{% endif %}">
-            <h2 class="h3">{{ item.title | link_to: item.url }}</h2>
+            <h2 class="heading">{{ item.title | link_to: item.url }}</h2>
 
             {% if item.price %}
               {% comment %}
@@ -106,14 +103,12 @@
           </div>
         </div>
 
-        {% unless forloop.last %}<hr>{% endunless %}
-
       {% endfor %}
 
-      {% include 'theme-pagination' with 'hr' %}
+      {% include 'theme-pagination' %}
 
     {% endif %}
 
   </div>
-
+</section>
 {% endpaginate %}

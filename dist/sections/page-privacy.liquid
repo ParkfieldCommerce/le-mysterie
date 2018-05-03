@@ -16,8 +16,10 @@
           {% assign privacy_lead = block.settings.privacy_lead %}
           {% assign privacy_body = block.settings.privacy_body %}
           <li class="tab-panel {% if forloop.first %}active{%- endif -%}" data-tabpanel="{{ privacy_lead }}">
-            <h3 class="block"><i class="fa fa-plus"></i> {{ privacy_lead }}</h3>
-            <p class="pane">{{ privacy_body }}</p>
+            <div class="accordion">
+              <h3 class="block"><span class="plus">+</span> {{ privacy_lead }}</h3>
+              <p class="pane">{{ privacy_body }}</p>
+            </div>
           </li>
         {%- endfor -%}
       </ul>

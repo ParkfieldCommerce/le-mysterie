@@ -5,7 +5,7 @@
   padding-bottom: 3em;
   .heading {
     text-align: center;
-    @include brandon-regular(80px);
+    @include minionpro(80px);
     @include m() {
       font-size: 60px;
     }
@@ -65,6 +65,7 @@
           top: 6px;
           pointer-events: none;
           font-size: 10px;
+          display: none;
         }
       }
       select {
@@ -92,6 +93,7 @@
         margin-left: 10px;
         @include s() {
           margin-left: 0px;
+          display: none;
         }
       }
     }
@@ -158,6 +160,9 @@
         display: block;
         margin: auto;
         height: 350px;
+        @include s(){
+          height: auto;
+        }
       }
     }
     .info {

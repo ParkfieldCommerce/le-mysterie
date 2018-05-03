@@ -2,7 +2,7 @@
   background: #fff;
   .heading {
     padding: 1em 0;
-    @include brandon-medium(60px);
+    @include minionpro(60px);
     text-align: center;
     @include m() {
       font-size: 50px;
@@ -37,9 +37,9 @@
     .tab-item {
       cursor: pointer;
       margin: 0;
-      padding: 1em;
+      padding: 0.5em;
       a {
-        @include brandon-medium(18px);
+        @include brandon-medium(14px);
         color: #eeeeee;
         text-transform: uppercase;
       }
@@ -58,6 +58,7 @@
 
     .tab-panels {
       margin-left: 0;
+      width: 70%;
     }
 
     .tab-panel {
@@ -68,26 +69,29 @@
         @include brandon-medium(26px);
         text-transform: uppercase;
       }
+      .dk-accordion {
+        position: relative;
+        width: 100%;
+      }
       .question {
-        @include brandon-regular(22px);
+        @include minionpro(22px);
         cursor: pointer;
-        i {
+        span {
           margin-right: 20px;
         }
       }
       .pane {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 34px;
         @include brandon-light(18px);
         color: #7d7d7d;
         overflow-x: hidden;
-        height: 0;
+        height: auto;
         visibility: hidden;
         opacity: 0;
-        &.active {
-          @include transition();
-          min-height: 100px;
-          visibility: visible;
-          opacity: 1;
-        }
+        padding: 0 28px 28px;
       }
       &.active {
         display: block;
@@ -108,12 +112,16 @@
       @include brandon-medium(18px);
       text-transform: uppercase;
     }
+    .mb-accordion {
+      position: relative;
+      width: 100%;
+    }
 
     .block {
       @include brandon-regular(16px);
       padding-bottom: 20px;
       margin: 0;
-      i {
+      span {
         margin-right: 10px;
       }
     }
@@ -122,16 +130,15 @@
       margin: 0;
       color: #7d7d7d;
       overflow-x: hidden;
-      height: 0;
+      height: 'auto';
       visibility: hidden;
       opacity: 0;
-      margin-left: 23px;
-      &.active {
-        @include transition();
-        min-height: 100px;
-        visibility: visible;
-        opacity: 1;
-      }
+      margin-left: 12px;
+      padding-bottom: 20px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 44px;
     }
   }
 }

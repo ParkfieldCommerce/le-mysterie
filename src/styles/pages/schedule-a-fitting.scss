@@ -1,9 +1,10 @@
 .schedule-a-fitting {
   background: #fff;
   .banner-main {
-    height: 500px;
+    height: 430px;
     background-position: 50% 50%;
     background-size: cover;
+    background-repeat: no-repeat;
     @include flex();
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -18,7 +19,7 @@
       height: 300px;
     }
     h1 {
-      @include brandon-regular(58px);
+      @include minionpro(58px);
       text-align: center;
       color: #fff;
       width: 60%;
@@ -36,7 +37,7 @@
   }
 
   .container {
-    padding: 4em 0;
+    padding: 100px 0 4em;
     @include m() {
       padding: 3em 0;
     }
@@ -59,7 +60,9 @@
     }
     @include s() {
       width: 90%;
-      font-size: 25px;
+      font-size: 20px;
+      line-height: 25px;
+      margin-bottom: 30px;
     }
   }
 
@@ -84,6 +87,11 @@
     @include s() {
       width: 100%;
       margin: 1em auto;
+    }
+    &.mb-js-hide {
+      @include s() {
+        display:  none;
+      }
     }
   }
   .btn,
@@ -201,6 +209,7 @@
           -ms-flex-pack: center;
               justify-content: center;
     }
+
     .input-wrapper {
       width: 100%;
       margin-bottom: 10px;
@@ -246,6 +255,32 @@
       textarea {
         resize: none;
         height: 170px;
+        &#contactMessage {
+          height: 270px;
+        }
+      }
+    }
+    .form-success-popup {
+      position: absolute;
+      width: 45%;
+      text-align: center;
+      z-index: 10;
+      background: #fff;
+      border: 1px solid #000;
+      padding: 50px;
+      @include s() {
+        width: 100%;
+        padding: 10px;
+      }
+      p {
+        @include minionpro(30px);
+      }
+      .success-btn-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        color: #000;
       }
     }
   }//.in-store

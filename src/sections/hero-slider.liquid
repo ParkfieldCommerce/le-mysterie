@@ -16,6 +16,12 @@
               background-position: bottom;
               background-size: cover;
             }
+            @media (max-width: 600px) {
+              .swiper-slide.slide-{{ forloop.index }} {
+                background-position: 27% 50%;
+                background-size: cover;
+              }
+            }
           </style>
           <div class="swiper-slide slide-{{ forloop.index }}">
             <div class="inner align-{{ text_placement }}">
