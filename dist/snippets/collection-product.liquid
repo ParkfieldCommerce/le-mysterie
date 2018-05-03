@@ -48,7 +48,7 @@
     <ul>
       {%- for tag in product.tags -%}
         {%- if tag contains 'color' -%}
-          <li><a class="color-filter active {{tag | split: '_' | last | handleize}}" data-tag="{{ product.handle }}"></a></li>
+          <li><a class="color-filter active {{tag | split: '_' | last | handleize}}" data-tag="{{ product.handle }}" data-image="{{ product.featured_image | img_url: 'master' }}"></a></li>
         {%- endif -%}
         {%- if tag contains 'related' -%}
           {% assign productTag = tag | split: '_' | last %}
@@ -58,7 +58,7 @@
                 {%- for handleColors in prod.tags -%}
                   {%- if handleColors contains 'color' -%}
                     {% assign colorSwatch = handleColors | split: '_' | last %}
-                    <li><a class="color-filter {{colorSwatch | handleize}}" data-tag="{{productTag}}"></a></li>
+                    <li><a class="color-filter {{colorSwatch | handleize}}" data-tag="{{productTag}}" data-image="{{ prod.featured_image | img_url: 'master' }}"></a></li>
                   {%- endif -%}
                 {%- endfor -%}
               {%- endif -%}

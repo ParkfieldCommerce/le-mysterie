@@ -1737,6 +1737,18 @@ form#CartPage {
     @include s() {
       padding-bottom: 10px;
     }
+    &.reset-filter {
+      -webkit-box-flex: 0;
+          -ms-flex: none;
+              flex: none;
+      width: 90px;
+      a {
+        color: #000;
+        text-decoration: none;
+        text-transform: uppercase;
+        @include brandon-light(14px);
+      }
+    }
     .select-wrapper {
       width: 100%;
       @include brandon-light(18px);
@@ -3913,6 +3925,30 @@ form#CartPage {
       color: #8a8a8a;
       @include brandon-regular(14px);
       line-height: 20px;
+    }
+  }
+  .form-success-popup {
+    position: absolute;
+    width: 45%;
+    text-align: center;
+    z-index: 10;
+    background: #fff;
+    border: 1px solid #000;
+    padding: 50px;
+    top: 5%;
+    @include s() {
+      width: 100%;
+      padding: 10px;
+    }
+    p {
+      @include minionpro(30px);
+    }
+    .success-btn-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+      color: #000;
     }
   }
 }

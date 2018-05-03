@@ -743,6 +743,14 @@ document.addEventListener("DOMContentLoaded", function() {
     return xhr;
   }
 
+  // Cont
+  function aContainsB (a, b) {
+    return a.indexOf(b) >= 0;
+  }
+  function aMissingB (a, b) {
+    return a.indexOf(b) == -1;
+  }
+
   // Header Menu slider
   var headerMenu = document.querySelectorAll('.header-menu.swiper-container');
   var headerMenuOptions = {
@@ -1027,12 +1035,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var target = e.target;
         var targetData = target.value;
         var url = window.location.href;
-        function aContainsB (a, b) {
-          return a.indexOf(b) >= 0;
-        }
-        function aMissingB (a, b) {
-          return a.indexOf(b) == -1;
-        }
         if (url.endsWith('/')) {
           url += targetData;
           window.location.href = url;
@@ -1046,33 +1048,42 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
 
+    // Set Filter State
+    function currentFilterState() {
+      var urlSegment = document.URL.substring(document.URL.lastIndexOf('/')+1);
+      if (urlSegment) {
+        var activeFilters = urlSegment.split('+');
+        for (var i = 0; i < activeFilters.length; i++) {
+          var checkHandleized = activeFilters[i].split('_');
+          if (checkHandleized.length > 1) {
+            var deHandle = checkHandleized.join('_');
+            document.querySelector('.checked[value="'+deHandle+'"]').checked = true;
+            document.querySelector('.reset-filter').classList.remove('hidden');
+          } else {
+            var firstFilter = document.querySelector('.checked[value="'+activeFilters[i]+'"]');
+            if (firstFilter != null) {
+              firstFilter.checked = true;
+              document.querySelector('.reset-filter').classList.remove('hidden');
+            }
+          }
+        }
+      }
+    }
+    currentFilterState();
+
     // Collection Swatches
     var swatches = document.querySelectorAll('.swatches ul');
     for (var i = 0; i < swatches.length; i++) {
       swatches[i].addEventListener('click', function(e) {
-        var target = e.target;
-        if (target.tagName === 'A') {
-          var targetDiv = target.closest('div');
-          var parent = targetDiv.parentNode;
-          var dataTag = target.getAttribute('data-tag');
-          var isActive = target.classList.contains('active');
-          var allFilters = parent.querySelector('.color-filter.active');
+        var target = e.target.closest('.color-filter');
+        var targetSrc = target.dataset.image;
+        var parent = target.closest('.collection-product');
+        var img = parent.querySelector('.image img');
+        img.src = targetSrc;
+        img.setAttribute('srcset', targetSrc);
 
-          if (isActive === false) {
-            allFilters.classList.remove('active');
-            target.classList.add('active');
-          }
-
-          getAjax('{{shop.url}}/products/'+dataTag, function(data) {
-            var div = document.createElement('div');
-            div.innerHTML = data;
-            var getPhoto = div.querySelector('#ProductPhoto img');
-            var photoSrc = getPhoto.src;
-            var targetImg = parent.querySelector('.image img');
-            targetImg.setAttribute('srcset', photoSrc);
-            targetImg.src = photoSrc;
-          });
-        }
+        target.closest('.swatches').querySelector('.color-filter.active').classList.remove('active');
+        target.classList.add('active');
       });
     }
 
@@ -1242,6 +1253,16 @@ document.addEventListener("DOMContentLoaded", function() {
         emailForm.velocity(dropdown, duration);
       }
     });
+
+    var formSuccessClose = document.querySelectorAll('.success-btn-close');
+    if (formSuccessClose.length > 0) {
+      for (var i = 0; i < formSuccessClose.length; i++) {
+        formSuccessClose[i].addEventListener('click', function() {
+          var parent = this.closest('.form-success-popup');
+          parent.velocity({ opacity: 0, visibility: 'hidden' }, { duration: 500 });
+        });
+      }
+    }
   }
 
   // Customer Service

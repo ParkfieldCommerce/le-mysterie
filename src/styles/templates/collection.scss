@@ -43,6 +43,18 @@
     @include s() {
       padding-bottom: 10px;
     }
+    &.reset-filter {
+      -webkit-box-flex: 0;
+          -ms-flex: none;
+              flex: none;
+      width: 90px;
+      a {
+        color: #000;
+        text-decoration: none;
+        text-transform: uppercase;
+        @include brandon-light(14px);
+      }
+    }
     .select-wrapper {
       width: 100%;
       @include brandon-light(18px);
